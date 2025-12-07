@@ -32,9 +32,9 @@ public class jtable_custom extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable Jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 TablezHeader header = new TablezHeader(o + "");
-                if (i1 == 10) {
-                    header.setHorizontalAlignment(JLabel.CENTER);
-                }
+                header.setHorizontalAlignment(JLabel.CENTER);
+                header.setBackground(new Color(0, 204, 255));
+                header.setForeground(Color.WHITE);
                 return header;
             }
 

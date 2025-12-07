@@ -15,7 +15,7 @@ public class App extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         pn_utama.removeAll();
-        pn_utama.add(new RiwayatPeminjaman());
+        pn_utama.add(new DataBuku());
         pn_utama.repaint();
         pn_utama.revalidate();
     }
@@ -114,16 +114,16 @@ public class App extends javax.swing.JFrame {
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(menuRiwayatPeminjaman)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(menuDataBuku)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(22, 22, 22)
                 .addComponent(menuPeminjaman)
                 .addGap(18, 18, 18)
                 .addComponent(menuPengembalian)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(menuRiwayatPeminjaman)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

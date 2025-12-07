@@ -31,11 +31,10 @@ public class DataBuku extends javax.swing.JPanel {
 
         // Query lengkap mengambil data dari relasi
         String query = "SELECT b.judul, p.nama_pengarang, pn.nama_penerbit, "
-                + "b.tahun_terbit, r.label_rak, b.eksemplar, b.sumber, b.tanggal_terima "
+                + "b.tahun_terbit, b.eksemplar, b.sumber, b.tanggal_terima "
                 + "FROM buku b "
                 + "LEFT JOIN pengarang p ON b.id_pengarang = p.id_pengarang "
-                + "LEFT JOIN penerbit pn ON b.id_penerbit = pn.id_penerbit "
-                + "LEFT JOIN rak r ON b.id_rak = r.id_rak";
+                + "LEFT JOIN penerbit pn ON b.id_penerbit = pn.id_penerbit ";
 
         Connection myConn;
 
@@ -55,7 +54,6 @@ public class DataBuku extends javax.swing.JPanel {
                     rs.getString("nama_pengarang"),
                     rs.getString("nama_penerbit"),
                     rs.getString("tahun_terbit"),
-                    rs.getString("label_rak"),
                     rs.getInt("eksemplar"),
                     rs.getString("sumber"),
                     rs.getString("tanggal_terima")
@@ -99,19 +97,19 @@ public class DataBuku extends javax.swing.JPanel {
 
         jtable_custom1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Judul", "Pengarang", "Penerbit", "Tahun Terbit", "Rak", "Eksemplar", "Sumber", "Tanggal Terima", "Aksi"
+                "Judul", "Pengarang", "Penerbit", "Tahun Terbit", "Eksemplar", "Sumber", "Tanggal Terima", "Aksi"
             }
         ));
         jScrollPane2.setViewportView(jtable_custom1);
