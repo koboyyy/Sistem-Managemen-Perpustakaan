@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
 import java.sql.Connection;
@@ -16,9 +12,6 @@ import java.sql.Statement;
  */
 public class DataAnggota extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DataBuku
-     */
     public DataAnggota() {
         initComponents();
         showDataAnggota();

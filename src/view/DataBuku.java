@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
 import java.sql.Connection;
@@ -15,10 +11,7 @@ import java.sql.Statement;
  * @author evo
  */
 public class DataBuku extends javax.swing.JPanel {
-
-    /**
-     * Creates new form DataBuku
-     */
+    
     public DataBuku() {
         initComponents();
         showDataBuku();
@@ -77,19 +70,19 @@ public class DataBuku extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jbTambahBuku = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtable_custom1 = new components.jtable_custom();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbTambahPengarang = new javax.swing.JButton();
+        jbTambahPenerbit = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Tambah Buku");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jbTambahBuku.setBackground(new java.awt.Color(0, 102, 255));
+        jbTambahBuku.setForeground(new java.awt.Color(255, 255, 255));
+        jbTambahBuku.setText("Tambah Buku");
+        jbTambahBuku.addActionListener(this::jbTambahBukuActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-book-24 (1).png"))); // NOI18N
@@ -114,15 +107,15 @@ public class DataBuku extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtable_custom1);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 255));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Tambah Pengarang");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jbTambahPengarang.setBackground(new java.awt.Color(0, 102, 255));
+        jbTambahPengarang.setForeground(new java.awt.Color(255, 255, 255));
+        jbTambahPengarang.setText("Tambah Pengarang");
+        jbTambahPengarang.addActionListener(this::jbTambahPengarangActionPerformed);
 
-        jButton3.setBackground(new java.awt.Color(0, 102, 255));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Tambah Penerbit");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jbTambahPenerbit.setBackground(new java.awt.Color(0, 102, 255));
+        jbTambahPenerbit.setForeground(new java.awt.Color(255, 255, 255));
+        jbTambahPenerbit.setText("Tambah Penerbit");
+        jbTambahPenerbit.addActionListener(this::jbTambahPenerbitActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,11 +130,11 @@ public class DataBuku extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbTambahPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbTambahPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbTambahBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,9 +144,9 @@ public class DataBuku extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbTambahBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbTambahPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbTambahPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -175,26 +168,26 @@ public class DataBuku extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbTambahBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahBukuActionPerformed
         new FormTambahBuku().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbTambahBukuActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbTambahPengarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahPengarangActionPerformed
+        new FormTambahPengarang().setVisible(true);
+    }//GEN-LAST:event_jbTambahPengarangActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jbTambahPenerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTambahPenerbitActionPerformed
+        new FormTambahPenerbit().setVisible(true);
+    }//GEN-LAST:event_jbTambahPenerbitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbTambahBuku;
+    private javax.swing.JButton jbTambahPenerbit;
+    private javax.swing.JButton jbTambahPengarang;
     private components.jtable_custom jtable_custom1;
     // End of variables declaration//GEN-END:variables
 }
