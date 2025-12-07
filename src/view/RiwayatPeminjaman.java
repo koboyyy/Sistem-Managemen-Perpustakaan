@@ -21,49 +21,46 @@ public class RiwayatPeminjaman extends javax.swing.JPanel {
      */
     public RiwayatPeminjaman() {
         initComponents();
-        showDataBuku();
+        showDataRiwayatPeminjaman();
     }
 
-    public final void showDataBuku() {
+    public final void showDataRiwayatPeminjaman() {
         String url = "jdbc:mysql://localhost:3306/perpustakaan";
         String user = "root";
         String password = "";
-        String query = "SELECT * FROM buku";
+
+        String query
+                = "SELECT a.nama_lengkap, b.judul, p.tanggal_pinjam, p.tanggal_jatuh_tempo, "
+                + "g.tanggal_kembali, g.total_denda "
+                + "FROM peminjaman p "
+                + "LEFT JOIN anggota a ON p.id_anggota = a.id_anggota "
+                + "LEFT JOIN detail_peminjaman dp ON dp.id_peminjaman = p.id_peminjaman "
+                + "LEFT JOIN buku b ON dp.id_buku = b.id_buku "
+                + "LEFT JOIN pengembalian g ON g.id_peminjaman = p.id_peminjaman";
+
         Connection myConn;
 
         try {
-            // Membuat koneksi ke database
             myConn = DriverManager.getConnection(url, user, password);
-
-            // Membuat SQL statement
             Statement myStmt = myConn.createStatement();
-
-            // Mengeksekusi query SQL
             ResultSet rs = myStmt.executeQuery(query);
 
-            // Ambil model dari jTable
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
+            javax.swing.table.DefaultTableModel model
+                    = (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
+
             model.setRowCount(0); // bersihkan tabel
 
-            // Loop hasil query dan masukkan ke jTable
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getString("kode_buku"),
+                    rs.getString("nama_lengkap"),
                     rs.getString("judul"),
-                    "",
-                    rs.getString("penerbit"),
-                    rs.getString("pengarang"),
-                    rs.getInt("jumlah_halaman"),
-                    "",
-                    rs.getString("isbn"),
-                    rs.getInt("tahun"),
-                    "",
-                    "",
-                    ""
+                    rs.getString("tanggal_pinjam"),
+                    rs.getString("tanggal_jatuh_tempo"),
+                    rs.getString("tanggal_kembali"),
+                    rs.getInt("total_denda")
                 });
             }
 
-            // Menutup koneksi
             myConn.close();
 
         } catch (SQLException ex) {
@@ -92,13 +89,13 @@ public class RiwayatPeminjaman extends javax.swing.JPanel {
 
         jtable_custom1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nama Lengkap", "Judul Buku", "Tanggal Pinjam", "Jatuh Tempo", "Tanggal Kembali", "Total Denda"
             }
         ));
         jScrollPane2.setViewportView(jtable_custom1);

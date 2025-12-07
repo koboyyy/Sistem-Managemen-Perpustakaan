@@ -6,6 +6,14 @@ package view;
 
 import components.RoundedTextField;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Dimension;
+import java.awt.List;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,6 +21,19 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.Instant;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -25,7 +46,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
     public FormTambahBuku() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        sugesPopUp();
     }
 
     /**
@@ -41,23 +62,24 @@ public class FormTambahBuku extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jtJudul = new RoundedTextField(20);
+        jtJudulBuku = new RoundedTextField(20);
         jLabel6 = new javax.swing.JLabel();
         jtPenerbit = new RoundedTextField(20);
-        jtTahunTerbit = new RoundedTextField(20);
         jtPengarang = new RoundedTextField(20);
-        jtJumlahStok = new RoundedTextField(20);
+        jtEksempler = new RoundedTextField(20);
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
-        btnKeluar = new javax.swing.JButton();
-        jtSumber = new RoundedTextField(20);
+        btnReset = new javax.swing.JButton();
+        jtTahunTerbit = new RoundedTextField(20);
         jLabel8 = new javax.swing.JLabel();
-        jdTanggalMasuk = new com.toedter.calendar.JDateChooser();
+        jdTanggalTerima = new com.toedter.calendar.JDateChooser();
+        jtSumber = new RoundedTextField(20);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tambah Buku");
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 102, 255));
@@ -88,34 +110,31 @@ public class FormTambahBuku extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         jLabel4.setText("Judul");
 
-        jtJudul.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jtJudulBuku.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel6.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel6.setText("Penerbit");
+        jLabel6.setText("Pengarang");
 
         jtPenerbit.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtPenerbit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        jtTahunTerbit.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
-        jtTahunTerbit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-
         jtPengarang.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtPengarang.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        jtJumlahStok.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
-        jtJumlahStok.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        jtEksempler.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        jtEksempler.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel7.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel7.setText("Pengarang");
+        jLabel7.setText("Penerbit");
 
         jLabel11.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel11.setText("Tahun Terbit");
+        jLabel11.setText("Sumber");
 
         jLabel12.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         jLabel12.setText("Eksempler");
 
         jLabel14.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel14.setText("Tanggal Masuk");
+        jLabel14.setText("Tanggal Terima");
 
         btnSimpan.setBackground(new java.awt.Color(0, 102, 255));
         btnSimpan.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -127,26 +146,24 @@ public class FormTambahBuku extends javax.swing.JFrame {
             }
         });
 
-        btnKeluar.setBackground(new java.awt.Color(0, 102, 255));
-        btnKeluar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btnKeluar.setForeground(new java.awt.Color(255, 255, 255));
-        btnKeluar.setText("Keluar");
-        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setBackground(new java.awt.Color(0, 102, 255));
+        btnReset.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Keluar");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKeluarActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
+
+        jtTahunTerbit.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        jtTahunTerbit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        jLabel8.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel8.setText("Tahun Terbit");
 
         jtSumber.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtSumber.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        jtSumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtSumberActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel8.setText("sumber");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,28 +172,33 @@ public class FormTambahBuku extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
-                    .addComponent(jtPenerbit)
-                    .addComponent(jtPengarang)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSimpan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnKeluar))
-                    .addComponent(jtTahunTerbit)
-                    .addComponent(jtJumlahStok)
-                    .addComponent(jtSumber)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jtPenerbit)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel8)
-                            .addComponent(jdTanggalMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                            .addComponent(jtJudulBuku, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                            .addComponent(jtPengarang)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSimpan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnReset))
+                            .addComponent(jtEksempler)
+                            .addComponent(jtTahunTerbit)
+                            .addComponent(jtSumber)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jdTanggalTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,35 +206,35 @@ public class FormTambahBuku extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtJudulBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtSumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jtTahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtTahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtSumber, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addGap(8, 8, 8)
-                .addComponent(jtJumlahStok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtEksempler, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdTanggalMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jdTanggalTerima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -235,32 +257,57 @@ public class FormTambahBuku extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        jtJudulBuku.setText("");
+        jtPengarang.setText("");
+        jtPenerbit.setText("");
+        jtTahunTerbit.setText("");
+        jtEksempler.setText("");
+        jtSumber.setText("");
+        jdTanggalTerima.setDateFormatString("");
+    }//GEN-LAST:event_btnResetActionPerformed
+
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        String judul = jtJudul.getText();
+        String judul = jtJudulBuku.getText();
         String pengarang = jtPengarang.getText();
         String penerbit = jtPenerbit.getText();
-        String sumber = jtSumber.getText();
+        String sumber = jtTahunTerbit.getText();
         String tahunTerbit = jtTahunTerbit.getText();
-        String eksemplar = jtJumlahStok.getText();
+        Date tanggalTerima = jdTanggalTerima.getDate();
+        int eksemplar;
 
-        if (jdTanggalMasuk.getDate() == null) {
-            Date tanggal = jdTanggalMasuk.getDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-            JOptionPane.showMessageDialog(null, "Silakan pilih tanggal terlebih dahulu!");
-            System.out.println(tanggal);
+        try {
+            eksemplar = Integer.parseInt(jtEksempler.getText());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Nilai eksemplar harus angka");
             return;
         }
-        
-        JOptionPane.showMessageDialog(null, jdTanggalMasuk.getDate());
 
+        if (jdTanggalTerima.getDate() == null) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            JOptionPane.showMessageDialog(null, "Silakan pilih tanggal terlebih dahulu!");
+
+            JOptionPane.showMessageDialog(null, jdTanggalTerima.getDate());
+
+            tambahBuku(judul, pengarang, penerbit, tahunTerbit, eksemplar, sumber, tanggalTerima);
+            
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+
+    public static void tambahBuku(String judul, String penerbit, String pengarang, String tahunTerbit, int eksemplar, String sumber, Date tanggalTerima) {
+
+        // Database connection details
         String url = "jdbc:mysql://localhost:3306/perpustakaan";
         String user = "root";
         String password = "";
-//        String query = "INSERT INTO buku (kode_buku, judul, pengarang, jumlah_halaman, penerbit, isbn, tahun) "
-//        + "VALUES ('" + kodeBuku + "', '" + judul + "', '" + pengarang + "', "
-//        + jumlahHalaman + ", '" + penerbit + "', '" + isbn + "', " + tahunTerbit + ");";
 
-        Connection myConn;
+        String query = "INSERT INTO buku (judul, pengarang, penerbit, tahun_terbit) "
+                + "VALUES ('" + judul + "', '" + penerbit + "', '" + pengarang + "', "
+                + tahunTerbit + ", '" + eksemplar + "', '" + sumber + "', " + tanggalTerima + ");";
+
+        Connection myConn = null;
 
         try {
             //Membuat koneksi ke database
@@ -268,25 +315,339 @@ public class FormTambahBuku extends javax.swing.JFrame {
             //Membuat SQL statement
             Statement myStmt = myConn.createStatement();
             //Mengeksekusi query SQL (Select, Insert, Update, Delete) dalam database
-//            myStmt.executeUpdate(query);
+            myStmt.executeUpdate(query);
 
-            //Menutup koneksi ke database
+            // 5. Menutup koneksi dan statement
             myConn.close();
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error menambahkan buku: " + ex.getMessage());
+        }
+    }
 
+    public static ArrayList<String> getPenerbit() {
+
+        String database = "perpustakaan";
+        String url = "jdbc:mysql://localhost:3306/" + database;
+        String user = "root";
+        String password = "";
+
+        var listPenerbit = new ArrayList<String>();
+
+        String query = "SELECT * FROM penerbit";
+
+        Connection myConn = null;
+
+        try {
+            myConn = DriverManager.getConnection(url, user, password);
+
+            Statement myStmt = myConn.createStatement();
+
+            ResultSet rs = myStmt.executeQuery(query);
+
+            // 2. Iterasi ResultSet dan tambahkan ke List
+            while (rs.next()) {
+                String nama_penerbit = rs.getString("nama_penerbit");
+
+                listPenerbit.add(nama_penerbit);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
 
-    }//GEN-LAST:event_btnSimpanActionPerformed
+        return listPenerbit;
+    }
 
-    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnKeluarActionPerformed
+    public static ArrayList<String> getPengarang() {
 
-    private void jtSumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtSumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtSumberActionPerformed
+        String database = "perpustakaan";
+        String url = "jdbc:mysql://localhost:3306/" + database;
+        String user = "root";
+        String password = "";
+
+        var listPengarang = new ArrayList<String>();
+
+        String query = "SELECT * FROM pengarang";
+
+        Connection myConn = null;
+
+        try {
+            myConn = DriverManager.getConnection(url, user, password);
+
+            Statement myStmt = myConn.createStatement();
+
+            ResultSet rs = myStmt.executeQuery(query);
+
+            // 2. Iterasi ResultSet dan tambahkan ke List
+            while (rs.next()) {
+                String nama_pengarang = rs.getString("nama_pengarang");
+
+                listPengarang.add(nama_pengarang);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return listPengarang;
+    }
+
+    public void sugesPopUp() {
+        ArrayList<String> listPengarang = getPengarang();
+
+        ArrayList<String> listPenerbit = getPenerbit();
+
+// --- popup untuk sugesti (inisialisasi sekali saja) ---
+        JPopupMenu suggestPopup = new JPopupMenu();
+        JList<String> suggestList = new JList<>();
+        JScrollPane suggestScroll = new JScrollPane(suggestList);
+
+// ukuran minimal agar terlihat rapi
+        suggestScroll.setPreferredSize(new Dimension(jtPengarang.getWidth(), 120));
+        suggestPopup.setFocusable(false);      // jangan ambil fokus
+        suggestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        suggestPopup.add(suggestScroll);
+
+// --- dokument listener untuk live search ---
+        jtPengarang.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                cekInput();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                cekInput();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+
+            private void cekInput() {
+                String input = jtPengarang.getText().toLowerCase().trim();
+
+                if (input.isEmpty()) {
+                    suggestPopup.setVisible(false);
+                    return;
+                }
+
+                DefaultListModel<String> model = new DefaultListModel<>();
+                for (String data : listPengarang) {
+                    String nama = data;
+                    if (nama != null && nama.toLowerCase().contains(input)) {
+                        model.addElement(nama);
+                    }
+                }
+
+                if (model.isEmpty()) {
+                    suggestPopup.setVisible(false);
+                    return;
+                }
+
+                suggestList.setModel(model);
+
+                // atur ukuran popup agar tidak terlalu kecil/terlalu besar
+                suggestScroll.setPreferredSize(new Dimension(jtPengarang.getWidth(), Math.min(120, model.getSize() * 20 + 4)));
+                suggestPopup.pack();
+
+                // tampilkan popup tepat di bawah textfield
+                suggestPopup.show(jtPengarang, 0, jtPengarang.getHeight());
+
+                // pastikan focus tetap di textfield agar user tetap bisa mengetik/hapus
+                jtPengarang.requestFocusInWindow();
+            }
+        });
+
+// --- klik pada suggestion untuk memilih ---
+        suggestList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    String selected = suggestList.getSelectedValue();
+                    if (selected != null) {
+                        jtPengarang.setText(selected);
+                    }
+                    suggestPopup.setVisible(false);
+                    jtPengarang.requestFocusInWindow();
+                }
+            }
+        });
+
+// --- keyboard: pindah ke suggestion dengan DOWN, lalu navigasi dan pilih dengan ENTER ---
+        jtPengarang.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_DOWN && suggestPopup.isVisible()) {
+                    // pindah fokus ke list dan pilih item pertama
+                    if (suggestList.getModel().getSize() > 0) {
+                        suggestList.requestFocusInWindow();
+                        suggestList.setSelectedIndex(0);
+                    }
+                }
+            }
+        });
+
+        suggestList.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+                    String selected = suggestList.getSelectedValue();
+                    if (selected != null) {
+                        jtPengarang.setText(selected);
+                    }
+                    suggestPopup.setVisible(false);
+                    jtPengarang.requestFocusInWindow();
+                } else if (code == KeyEvent.VK_ESCAPE) {
+                    // tutup popup dan kembalikan fokus
+                    suggestPopup.setVisible(false);
+                    jtPengarang.requestFocusInWindow();
+                } else if (code == KeyEvent.VK_UP && suggestList.getSelectedIndex() == 0) {
+                    // jika sudah di atas dan user tekan UP, kembalikan fokus ke textfield
+                    jtPengarang.requestFocusInWindow();
+                }
+            }
+        });
+
+// --- jika user klik di area lain, tutup popup ---
+        jtPengarang.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                // beri delay kecil agar click pada list masih terproses
+                SwingUtilities.invokeLater(() -> {
+                    if (!suggestList.hasFocus()) {
+                        suggestPopup.setVisible(false);
+                    }
+                });
+            }
+        });
+
+//    ======================================================================
+// ukuran minimal agar terlihat rapi
+        suggestScroll.setPreferredSize(new Dimension(jtPenerbit.getWidth(), 120));
+        suggestPopup.setFocusable(false);      // jangan ambil fokus
+        suggestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        suggestPopup.add(suggestScroll);
+
+// --- dokument listener untuk live search ---
+        jtPenerbit.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                cekInput();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                cekInput();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+
+            private void cekInput() {
+                String input = jtPenerbit.getText().toLowerCase().trim();
+
+                if (input.isEmpty()) {
+                    suggestPopup.setVisible(false);
+                    return;
+                }
+
+                DefaultListModel<String> model = new DefaultListModel<>();
+                for (String data : listPenerbit) {
+                    String nama = data;
+                    if (nama != null && nama.toLowerCase().contains(input)) {
+                        model.addElement(nama);
+                    }
+                }
+
+                if (model.isEmpty()) {
+                    suggestPopup.setVisible(false);
+                    return;
+                }
+
+                suggestList.setModel(model);
+
+                // atur ukuran popup agar tidak terlalu kecil/terlalu besar
+                suggestScroll.setPreferredSize(new Dimension(jtPenerbit.getWidth(), Math.min(120, model.getSize() * 20 + 4)));
+                suggestPopup.pack();
+
+                // tampilkan popup tepat di bawah textfield
+                suggestPopup.show(jtPenerbit, 0, jtPenerbit.getHeight());
+
+                // pastikan focus tetap di textfield agar user tetap bisa mengetik/hapus
+                jtPenerbit.requestFocusInWindow();
+            }
+        });
+
+// --- klik pada suggestion untuk memilih ---
+        suggestList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    String selected = suggestList.getSelectedValue();
+                    if (selected != null) {
+                        jtPenerbit.setText(selected);
+                    }
+                    suggestPopup.setVisible(false);
+                    jtPenerbit.requestFocusInWindow();
+                }
+            }
+        });
+
+// --- keyboard: pindah ke suggestion dengan DOWN, lalu navigasi dan pilih dengan ENTER ---
+        jtPenerbit.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_DOWN && suggestPopup.isVisible()) {
+                    // pindah fokus ke list dan pilih item pertama
+                    if (suggestList.getModel().getSize() > 0) {
+                        suggestList.requestFocusInWindow();
+                        suggestList.setSelectedIndex(0);
+                    }
+                }
+            }
+        });
+
+        suggestList.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+                    String selected = suggestList.getSelectedValue();
+                    if (selected != null) {
+                        jtPenerbit.setText(selected);
+                    }
+                    suggestPopup.setVisible(false);
+                    jtPenerbit.requestFocusInWindow();
+                } else if (code == KeyEvent.VK_ESCAPE) {
+                    // tutup popup dan kembalikan fokus
+                    suggestPopup.setVisible(false);
+                    jtPenerbit.requestFocusInWindow();
+                } else if (code == KeyEvent.VK_UP && suggestList.getSelectedIndex() == 0) {
+                    // jika sudah di atas dan user tekan UP, kembalikan fokus ke textfield
+                    jtPenerbit.requestFocusInWindow();
+                }
+            }
+        });
+
+// --- jika user klik di area lain, tutup popup ---
+        jtPenerbit.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                // beri delay kecil agar click pada list masih terproses
+                SwingUtilities.invokeLater(() -> {
+                    if (!suggestList.hasFocus()) {
+                        suggestPopup.setVisible(false);
+                    }
+                });
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments
@@ -315,7 +676,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnKeluar;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -326,9 +687,9 @@ public class FormTambahBuku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private com.toedter.calendar.JDateChooser jdTanggalMasuk;
-    private javax.swing.JTextField jtJudul;
-    private javax.swing.JTextField jtJumlahStok;
+    private com.toedter.calendar.JDateChooser jdTanggalTerima;
+    private javax.swing.JTextField jtEksempler;
+    private javax.swing.JTextField jtJudulBuku;
     private javax.swing.JTextField jtPenerbit;
     private javax.swing.JTextField jtPengarang;
     private javax.swing.JTextField jtSumber;

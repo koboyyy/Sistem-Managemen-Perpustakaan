@@ -84,6 +84,7 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Formulir Pendaftaran Anggota");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

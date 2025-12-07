@@ -28,42 +28,40 @@ public class DataBuku extends javax.swing.JPanel {
         String url = "jdbc:mysql://localhost:3306/perpustakaan";
         String user = "root";
         String password = "";
-        String query = "SELECT * FROM buku";
+
+        // Query lengkap mengambil data dari relasi
+        String query = "SELECT b.judul, p.nama_pengarang, pn.nama_penerbit, "
+                + "b.tahun_terbit, r.label_rak, b.eksemplar, b.sumber, b.tanggal_terima "
+                + "FROM buku b "
+                + "LEFT JOIN pengarang p ON b.id_pengarang = p.id_pengarang "
+                + "LEFT JOIN penerbit pn ON b.id_penerbit = pn.id_penerbit "
+                + "LEFT JOIN rak r ON b.id_rak = r.id_rak";
+
         Connection myConn;
 
         try {
-            // Membuat koneksi ke database
             myConn = DriverManager.getConnection(url, user, password);
-
-            // Membuat SQL statement
             Statement myStmt = myConn.createStatement();
-
-            // Mengeksekusi query SQL
             ResultSet rs = myStmt.executeQuery(query);
 
-            // Ambil model dari jTable
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
-            model.setRowCount(0); // bersihkan tabel
+            javax.swing.table.DefaultTableModel model
+                    = (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
 
-            // Loop hasil query dan masukkan ke jTable
+            model.setRowCount(0); // reset tabel
+
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getString("kode_buku"),
                     rs.getString("judul"),
-                    "",
-                    rs.getString("penerbit"),
-                    rs.getString("pengarang"),
-                    rs.getInt("jumlah_halaman"),
-                    "",
-                    rs.getString("isbn"),
-                    rs.getInt("tahun"),
-                    "",
-                    "",
-                    ""
+                    rs.getString("nama_pengarang"),
+                    rs.getString("nama_penerbit"),
+                    rs.getString("tahun_terbit"),
+                    rs.getString("label_rak"),
+                    rs.getInt("eksemplar"),
+                    rs.getString("sumber"),
+                    rs.getString("tanggal_terima")
                 });
             }
 
-            // Menutup koneksi
             myConn.close();
 
         } catch (SQLException ex) {
@@ -85,6 +83,8 @@ public class DataBuku extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtable_custom1 = new components.jtable_custom();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,20 +94,37 @@ public class DataBuku extends javax.swing.JPanel {
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-book-24 (1).png"))); // NOI18N
         jLabel2.setText("Koleksi Buku");
 
         jtable_custom1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Judul", "Pengarang", "Penerbit", "Tahun Terbit", "Rak", "Eksemplar", "Sumber", "Tanggal Terima", "Aksi"
             }
         ));
         jScrollPane2.setViewportView(jtable_custom1);
+
+        jButton2.setBackground(new java.awt.Color(0, 102, 255));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Tambah Pengarang");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        jButton3.setBackground(new java.awt.Color(0, 102, 255));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Tambah Penerbit");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,12 +134,16 @@ public class DataBuku extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,8 +152,11 @@ public class DataBuku extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel2)
                 .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -147,7 +171,7 @@ public class DataBuku extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -157,9 +181,19 @@ public class DataBuku extends javax.swing.JPanel {
         new FormTambahBuku().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;

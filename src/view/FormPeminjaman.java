@@ -1,5 +1,12 @@
-
 package view;
+
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 public class FormPeminjaman extends javax.swing.JFrame {
     
@@ -31,8 +38,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfNamaAnggota = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jdTanggalPinjam = new com.toedter.calendar.JDateChooser();
+        jdTanggalKembali = new com.toedter.calendar.JDateChooser();
         jpBukuPertama = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jtIDBuku1 = new javax.swing.JTextField();
@@ -55,15 +62,13 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jtPenerbitBuku2 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jtTahunTerbitBuku2 = new javax.swing.JTextField();
-        btnTambah = new javax.swing.JButton();
         btnSimpan = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
-        btnKeluar = new javax.swing.JButton();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         judulForm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("formPeminjaman");
+        setTitle("Formulir Peminjaman");
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -92,13 +97,13 @@ public class FormPeminjaman extends javax.swing.JFrame {
         tfNamaAnggota.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
         tfNamaAnggota.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
-        jDateChooser1.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
-        jDateChooser1.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
+        jdTanggalPinjam.setBackground(new java.awt.Color(255, 255, 255));
+        jdTanggalPinjam.setForeground(new java.awt.Color(255, 255, 255));
+        jdTanggalPinjam.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
 
-        jDateChooser2.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser2.setForeground(new java.awt.Color(255, 255, 255));
-        jDateChooser2.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
+        jdTanggalKembali.setBackground(new java.awt.Color(255, 255, 255));
+        jdTanggalKembali.setForeground(new java.awt.Color(255, 255, 255));
+        jdTanggalKembali.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
 
         jpBukuPertama.setBackground(new java.awt.Color(255, 255, 255));
         jpBukuPertama.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Detail Buku Pertama", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto Light", 0, 14))); // NOI18N
@@ -262,16 +267,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnTambah.setBackground(new java.awt.Color(0, 102, 255));
-        btnTambah.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
-        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
-        btnTambah.setText("Tambah");
-        btnTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTambahActionPerformed(evt);
-            }
-        });
-
         btnSimpan.setBackground(new java.awt.Color(0, 102, 255));
         btnSimpan.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
@@ -289,16 +284,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
         btnBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBatalActionPerformed(evt);
-            }
-        });
-
-        btnKeluar.setBackground(new java.awt.Color(0, 102, 255));
-        btnKeluar.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
-        btnKeluar.setForeground(new java.awt.Color(255, 255, 255));
-        btnKeluar.setText("Keluar");
-        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKeluarActionPerformed(evt);
             }
         });
 
@@ -322,25 +307,20 @@ public class FormPeminjaman extends javax.swing.JFrame {
                             .addComponent(tfNamaAnggota, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdTanggalPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jdTanggalKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addComponent(btnTambah)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSimpan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBatal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnKeluar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBatal))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jpBukuPertama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jpBukuKedua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -367,18 +347,16 @@ public class FormPeminjaman extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdTanggalPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdTanggalKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpBukuKedua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpBukuPertama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTambah)
                     .addComponent(btnSimpan)
-                    .addComponent(btnBatal)
-                    .addComponent(btnKeluar))
+                    .addComponent(btnBatal))
                 .addGap(40, 40, 40))
         );
 
@@ -402,55 +380,126 @@ public class FormPeminjaman extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTambahActionPerformed
-
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        tambahPeminjaman();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnBatalActionPerformed
 
-    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+    public void tambahPeminjaman() {
 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnKeluarActionPerformed
+        String url = "jdbc:mysql://localhost:3306/perpustakaan";
+        String user = "root";
+        String password = "";
 
+        // Ambil data form
+        String idPeminjaman = tfKodePeminjaman.getText();
+        String idAnggota = tfIDAnggota.getText();
+        String tanggalPinjam = jdTanggalPinjam.getDateFormatString();
+        String tanggalJatuhTempo = jdTanggalKembali.getDateFormatString();
+
+        String idBuku1 = jtIDBuku1.getText();
+        String idBuku2 = jtIDBuku2.getText();
+
+        if (idPeminjaman.isEmpty() || idAnggota.isEmpty() || idBuku1.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data belum lengkap!");
+            return;
+        }
+
+        // =============================
+        // SUSUN QUERY INSERT PEMINJAMAN
+        // =============================
+        String query1
+                = "INSERT INTO peminjaman (id_peminjaman, id_anggota, tanggal_pinjam, tanggal_jatuh_tempo) VALUES ("
+                + "'" + idPeminjaman + "', "
+                + "'" + idAnggota + "', "
+                + "'" + tanggalPinjam + "', "
+                + "'" + tanggalJatuhTempo + "'"
+                + ");";
+
+        // =============================
+        // QUERY DETAIL BUKU 1
+        // =============================
+        String query2
+                = "INSERT INTO detail_peminjaman (id_buku, id_peminjaman) VALUES ("
+                + "'" + idBuku1 + "', "
+                + "'" + idPeminjaman + "'"
+                + ");";
+
+        // =============================
+        // QUERY DETAIL BUKU 2 (opsional)
+        // =============================
+        String query3 = "";
+        if (!idBuku2.isEmpty()) {
+            query3
+                    = "INSERT INTO detail_peminjaman (id_buku, id_peminjaman) VALUES ("
+                    + "'" + idBuku2 + "', "
+                    + "'" + idPeminjaman + "'"
+                    + ");";
+        }
+
+        Connection myConn;
+
+        try {
+
+            // KONEKSI DB
+            myConn = DriverManager.getConnection(url, user, password);
+
+            // STATEMENT
+            Statement myStmt = myConn.createStatement();
+
+            // EXECUTE QUERY
+            myStmt.executeUpdate(query1); // simpan peminjaman
+            myStmt.executeUpdate(query2); // simpan detail buku pertama
+
+            if (!query3.isEmpty()) {
+                myStmt.executeUpdate(query3); // simpan detail buku kedua (jika ada)
+            }
+
+            System.out.println("Insert peminjaman complete.");
+            JOptionPane.showMessageDialog(null, "Peminjaman berhasil disimpan!");
+
+            myConn.close();
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Error menyimpan peminjaman!");
+        }
+
+    }
+
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPeminjaman().setVisible(true));
+    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        logger.log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(() -> new FormPeminjaman().setVisible(true));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JButton btnTambah;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -467,6 +516,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
+    private com.toedter.calendar.JDateChooser jdTanggalKembali;
+    private com.toedter.calendar.JDateChooser jdTanggalPinjam;
     private javax.swing.JPanel jpBukuKedua;
     private javax.swing.JPanel jpBukuPertama;
     private javax.swing.JTextField jtIDBuku1;

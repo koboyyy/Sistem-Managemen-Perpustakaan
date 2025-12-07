@@ -6,11 +6,11 @@ import view.*;
  *
  * @author evo
  */
-public class MenuUtama extends javax.swing.JFrame {
+public class App extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuUtama.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(App.class.getName());
 
-    public MenuUtama() {
+    public App() {
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -39,6 +39,7 @@ public class MenuUtama extends javax.swing.JFrame {
         pn_utama = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manajemen Perpustakaan");
         setSize(new java.awt.Dimension(1280, 720));
 
         jpKiri.setBackground(new java.awt.Color(255, 255, 51));
@@ -147,7 +148,7 @@ public class MenuUtama extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-book-32.png"))); // NOI18N
-        jLabel1.setText("Managemen Perpustakaan");
+        jLabel1.setText("Manajemen Perpustakaan");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +271,7 @@ public class MenuUtama extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuUtama().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new App().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

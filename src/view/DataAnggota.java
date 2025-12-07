@@ -21,55 +21,54 @@ public class DataAnggota extends javax.swing.JPanel {
      */
     public DataAnggota() {
         initComponents();
-        showDataBuku();
+        showDataAnggota();
     }
 
-    public final void showDataBuku() {
-        String url = "jdbc:mysql://localhost:3306/perpustakaan";
-        String user = "root";
-        String password = "";
-        String query = "SELECT * FROM buku";
-        Connection myConn;
+    public final void showDataAnggota() {
+    String url = "jdbc:mysql://localhost:3306/perpustakaan";
+    String user = "root";
+    String password = "";
+    String query = "SELECT nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp FROM anggota";
 
-        try {
-            // Membuat koneksi ke database
-            myConn = DriverManager.getConnection(url, user, password);
+    Connection myConn;
 
-            // Membuat SQL statement
-            Statement myStmt = myConn.createStatement();
+    try {
+        // Membuat koneksi ke database
+        myConn = DriverManager.getConnection(url, user, password);
 
-            // Mengeksekusi query SQL
-            ResultSet rs = myStmt.executeQuery(query);
+        // Membuat statement SQL
+        Statement myStmt = myConn.createStatement();
 
-            // Ambil model dari jTable
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
-            model.setRowCount(0); // bersihkan tabel
+        // Menjalankan query
+        ResultSet rs = myStmt.executeQuery(query);
 
-            // Loop hasil query dan masukkan ke jTable
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("kode_buku"),
-                    rs.getString("judul"),
-                    "",
-                    rs.getString("penerbit"),
-                    rs.getString("pengarang"),
-                    rs.getInt("jumlah_halaman"),
-                    "",
-                    rs.getString("isbn"),
-                    rs.getInt("tahun"),
-                    "",
-                    "",
-                    ""
-                });
-            }
+        // Ambil model jTable
+        javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) jtable_custom1.getModel();
 
-            // Menutup koneksi
-            myConn.close();
+        model.setRowCount(0); // Bersihkan isi tabel
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        // Masukkan data hasil query ke jTable
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getString("nama_lengkap"),
+                rs.getString("tempat_lahir"),
+                rs.getString("tanggal_lahir"),
+                rs.getString("nik"),
+                rs.getString("alamat"),
+                rs.getString("jenis_kelamin"),
+                rs.getString("no_hp")
+            });
         }
+
+        // Tutup koneksi
+        myConn.close();
+
+    } catch (SQLException ex) {
+        System.out.println(ex);
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,13 +97,13 @@ public class DataAnggota extends javax.swing.JPanel {
 
         jtable_custom1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nama Lengkap", "Tempat Lahir", "Tanggal Lahir", "NIK", "Alamat", "Jenis Kelamin", "Nomor HP"
             }
         ));
         jScrollPane2.setViewportView(jtable_custom1);

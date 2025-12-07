@@ -4,7 +4,7 @@
  */
 package view;
 
-import App.MenuUtama;
+import App.App;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -165,7 +166,7 @@ public class Login extends javax.swing.JFrame {
                     "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
             // Buka halaman utama
-            new MenuUtama().setVisible(true);
+            new App().setVisible(true);
             Login.this.dispose();
 
         } else {
