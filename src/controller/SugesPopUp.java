@@ -17,29 +17,48 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class sugesPopUp {
-    
-    javax.swing.JTextField jTextField;
-    ArrayList<String> listData;
+public class SugesPopUp {
 
-// --- popup untuk sugesti (inisialisasi sekali saja) ---
+    private final javax.swing.JTextField jTextField;
+    private ArrayList<String> listData = new ArrayList<>();
+    private ArrayList<String[]> listDataArray = new ArrayList<>();
+
+    private boolean isiAnakan = false;
+    private ArrayList<javax.swing.JTextField> listJt = new ArrayList<>();
+
     JPopupMenu suggestPopup = new JPopupMenu();
     JList<String> suggestList = new JList<>();
     JScrollPane suggestScroll = new JScrollPane(suggestList);
 
-    public sugesPopUp(javax.swing.JTextField jTextField, ArrayList<String> listData) {
+    public SugesPopUp(javax.swing.JTextField jTextField, ArrayList<String> listData) {
 
         this.jTextField = jTextField;
         this.listData = listData;
+        setinganUI();
 
+    }
 
-// ukuran minimal agar terlihat rapi
+    public SugesPopUp(javax.swing.JTextField jTextField, ArrayList<String> listData, ArrayList<String[]> listDataArray) {
+
+        this.jTextField = jTextField;
+        this.listData = listData;
+        this.listDataArray = listDataArray;
+        setinganUI();
+
+    }
+
+    public final void setinganUI() {
+        // ukuran minimal agar terlihat rapi
         suggestScroll.setPreferredSize(new Dimension(this.jTextField.getWidth(), 120));
         suggestPopup.setFocusable(false);      // jangan ambil fokus
         suggestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         suggestPopup.add(suggestScroll);
+    }
 
+    public void isiAnakan(boolean b, ArrayList<javax.swing.JTextField> listJt) {
+        this.isiAnakan = b;
+        this.listJt = listJt;
     }
 
     public void active() {
@@ -69,11 +88,24 @@ public class sugesPopUp {
                 }
 
                 DefaultListModel<String> model = new DefaultListModel<>();
-                for (String data : listData) {
-                    String nama = data;
-                    if (nama != null && nama.toLowerCase().contains(input)) {
-                        model.addElement(nama);
+
+                if (!listData.isEmpty()) {
+
+                    for (String data : listData) {
+                        String nama = data;
+                        if (nama != null && nama.toLowerCase().contains(input)) {
+                            model.addElement(nama);
+                        }
                     }
+                } else {
+
+                    for (String[] dataArray : listDataArray) {
+                        if (dataArray[0] != null && dataArray[0].toLowerCase().contains(input)) {
+                            model.addElement(dataArray[0]);
+                        }
+
+                    }
+
                 }
 
                 if (model.isEmpty()) {
@@ -103,6 +135,16 @@ public class sugesPopUp {
                     String selected = suggestList.getSelectedValue();
                     if (selected != null) {
                         jTextField.setText(selected);
+
+                        for (String[] dataArray : listDataArray) {
+                            if (dataArray[0] == selected) {
+                                
+                                listJt.get(0).setText(dataArray[1]);
+                                listJt.get(1).setText(dataArray[2]);
+                                listJt.get(2).setText(dataArray[3]);
+                            }
+
+                        }
                     }
                     suggestPopup.setVisible(false);
                     jTextField.requestFocusInWindow();
@@ -133,6 +175,11 @@ public class sugesPopUp {
                     if (selected != null) {
                         jTextField.setText(selected);
                     }
+
+                    if (isiAnakan) {
+
+                    }
+
                     suggestPopup.setVisible(false);
                     jTextField.requestFocusInWindow();
                 } else if (code == KeyEvent.VK_ESCAPE) {
@@ -158,6 +205,6 @@ public class sugesPopUp {
                 });
             }
         });
-        
+
     }
 }
