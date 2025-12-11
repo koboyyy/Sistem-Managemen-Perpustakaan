@@ -34,8 +34,7 @@ public class RiwayatPeminjaman extends javax.swing.JPanel {
                 + "g.tanggal_kembali, g.total_denda "
                 + "FROM peminjaman p "
                 + "LEFT JOIN anggota a ON p.id_anggota = a.id_anggota "
-                + "LEFT JOIN detail_peminjaman dp ON dp.id_peminjaman = p.id_peminjaman "
-                + "LEFT JOIN buku b ON dp.id_buku = b.id_buku "
+                + "LEFT JOIN buku b ON p.id_buku = b.id_buku "
                 + "LEFT JOIN pengembalian g ON g.id_peminjaman = p.id_peminjaman";
 
         Connection myConn;
@@ -65,6 +64,7 @@ public class RiwayatPeminjaman extends javax.swing.JPanel {
 
         } catch (SQLException ex) {
             System.out.println(ex);
+            System.out.println("Pengambilan data gagal");
         }
     }
 

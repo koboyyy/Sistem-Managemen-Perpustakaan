@@ -47,23 +47,23 @@ public class FormPeminjaman extends javax.swing.JFrame {
         listTj2.add(jtPenerbitBuku2);
         listTj2.add(jtTahunTerbitBuku2);
         
-        listTj3.add(jtNamaAnggota);
+        
         listTj3.add(tfIDAnggota);
 
         this.setLocationRelativeTo(null);
 
-        this.spu1 = new SugesPopUp(jtJudulBuku1, new ArrayList<>(), listBuku);
+        this.spu1 = new SugesPopUp(jtNamaAnggota, new ArrayList<>(), listAnggota);
         spu1.active();
-        spu1.isiAnakan(true, listTj1);
+        spu1.isiAnakan(true, listTj3);
 
         this.spu2 = new SugesPopUp(jtJudulBuku2, new ArrayList<>(), listBuku);
         spu2.active();
         spu2.isiAnakan(true, listTj2);
         
         
-        this.spu3 = new SugesPopUp(jtNamaAnggota, new ArrayList<>(), listAnggota);
+        this.spu3 = new SugesPopUp(jtJudulBuku1, new ArrayList<>(), listBuku);
         spu3.active();
-        spu3.isiAnakan(true, listTj3);
+        spu3.isiAnakan(true, listTj1);
         
         
     }
@@ -119,8 +119,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
         judulForm.setPreferredSize(new java.awt.Dimension(223, 40));
         kGradientPanel1.add(judulForm, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(kGradientPanel1, java.awt.BorderLayout.PAGE_START);
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(600, 572));
 
@@ -163,6 +161,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         jpBukuPertama.setBackground(new java.awt.Color(255, 255, 255));
@@ -353,7 +352,20 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -370,28 +382,28 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
 //        AMBIL INPUT FORM
         String idAnggota = tfIDAnggota.getText();
-        Date tanggalPinjam = jdTanggalPinjam.getDate();
+        Date tglPinjam = jdTanggalPinjam.getDate();
 
+        
+        
+        
         Calendar cal = Calendar.getInstance();
-        cal.setTime(tanggalPinjam);
+        cal.setTime(tglPinjam);
 
 // Tambahkan 7 hari
         cal.add(Calendar.DAY_OF_MONTH, 7);
         Date jatuhTempo = cal.getTime();
 
         java.sql.Date tanggalJatuhTempo = new java.sql.Date(jatuhTempo.getTime());
+        java.sql.Date tanggalPinjam = new java.sql.Date(tglPinjam.getTime());
 
         System.out.println(tanggalJatuhTempo);
 
-        int id_buku1 = 0;
-        int id_buku2 = 0;
-        int id_peminjaman = 0;
-
 //        VALIDASI INPUT SUDAH LENGKAP?
-        if (idAnggota.isEmpty() || id_buku1 == 0 || id_peminjaman == 0) {
-            JOptionPane.showMessageDialog(null, "Data belum lengkap!");
-            return;
-        }
+//        if (idAnggota.isEmpty() || id_buku1 == 0 || id_peminjaman == 0) {
+//            JOptionPane.showMessageDialog(null, "Data belum lengkap!");
+//            return;
+//        }
 
         // =============================
         // SUSUN QUERY INSERT PEMINJAMAN
@@ -403,35 +415,9 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 + "'" + tanggalJatuhTempo + "'"
                 + ");";
 
-        // =============================
-        // QUERY DETAIL BUKU 1
-        // =============================
-        String query2
-                = "INSERT INTO detail_peminjaman (id_buku, id_peminjaman) VALUES ("
-                + "'" + id_buku1 + "', "
-                + "'" + id_peminjaman + "'"
-                + ");";
-
-        // =============================
-        // QUERY DETAIL BUKU 2 (opsional)
-        // =============================
-        String query3 = "";
-        if (id_buku2 > 0) {
-            query3
-                    = "INSERT INTO detail_peminjaman (id_buku, id_peminjaman) VALUES ("
-                    + "'" + id_buku2 + "', "
-                    + "'" + id_peminjaman + "'"
-                    + ");";
-        }
-
         try {
             // EXECUTE QUERY
             dbc.crStmt().executeUpdate(query1); // simpan peminjaman
-            dbc.crStmt().executeUpdate(query2); // simpan detail buku pertama
-
-            if (!query3.isEmpty()) {
-                dbc.crStmt().executeUpdate(query3);
-            }
 
             System.out.println("Insert peminjaman complete.");
             JOptionPane.showMessageDialog(null, "Peminjaman berhasil disimpan!");
@@ -488,6 +474,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 data.add(new String[]{
                     rs.getString("nama_lengkap"),
                     rs.getString("id_anggota"),
+                    rs.getString("tempat_lahir"),
+                    rs.getString("tanggal_lahir")
                     
                 });
             }

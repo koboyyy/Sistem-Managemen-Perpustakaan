@@ -126,26 +126,47 @@ public class SugesPopUp {
                 jTextField.requestFocusInWindow();
             }
         });
-
 // --- klik pada suggestion untuk memilih ---
         suggestList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     String selected = suggestList.getSelectedValue();
-                    if (selected != null) {
+                    if (isiAnakan) {
+
+                        if (selected != null) {
+                            jTextField.setText(selected);
+                        }
+
                         jTextField.setText(selected);
 
+                        // Cari data yang cocok
                         for (String[] dataArray : listDataArray) {
-                            if (dataArray[0] == selected) {
-                                
-                                listJt.get(0).setText(dataArray[1]);
-                                listJt.get(1).setText(dataArray[2]);
-                                listJt.get(2).setText(dataArray[3]);
-                            }
 
+                            // Gunakan equals untuk membandingkan String
+                            if (dataArray[0].equals(selected)) {
+
+                                // Isi setiap JTextField secara dinamis
+                                for (int i = 0; i < listJt.size(); i++) {
+
+                                    // i+1 karena dataArray[0] = key
+                                    if (i + 1 < dataArray.length) {
+                                        listJt.get(i).setText(dataArray[i + 1]);
+                                    } else {
+                                        // Jika dataArray kurang panjang, isi string kosong
+                                        listJt.get(i).setText("");
+                                    }
+                                }
+
+                                break; // Hentikan loop setelah ketemu
+                            }
+                        }
+                    } else {
+                        if (selected != null) {
+                            jTextField.setText(selected);
                         }
                     }
+
                     suggestPopup.setVisible(false);
                     jTextField.requestFocusInWindow();
                 }
@@ -158,6 +179,8 @@ public class SugesPopUp {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_DOWN && suggestPopup.isVisible()) {
                     // pindah fokus ke list dan pilih item pertama
+                    
+                    System.out.println("size model: " + suggestList.getModel().getSize());
                     if (suggestList.getModel().getSize() > 0) {
                         suggestList.requestFocusInWindow();
                         suggestList.setSelectedIndex(0);
@@ -172,12 +195,40 @@ public class SugesPopUp {
                 int code = e.getKeyCode();
                 if (code == KeyEvent.VK_ENTER) {
                     String selected = suggestList.getSelectedValue();
-                    if (selected != null) {
-                        jTextField.setText(selected);
-                    }
 
                     if (isiAnakan) {
 
+                        if (selected != null) {
+                            jTextField.setText(selected);
+                        }
+
+                        jTextField.setText(selected);
+
+                        // Cari data yang cocok
+                        for (String[] dataArray : listDataArray) {
+
+                            // Gunakan equals untuk membandingkan String
+                            if (dataArray[0].equals(selected)) {
+
+                                // Isi setiap JTextField secara dinamis
+                                for (int i = 0; i < listJt.size(); i++) {
+
+                                    // i+1 karena dataArray[0] = key
+                                    if (i + 1 < dataArray.length) {
+                                        listJt.get(i).setText(dataArray[i + 1]);
+                                    } else {
+                                        // Jika dataArray kurang panjang, isi string kosong
+                                        listJt.get(i).setText("");
+                                    }
+                                }
+
+                                break; // Hentikan loop setelah ketemu
+                            }
+                        }
+                    } else {
+                        if (selected != null) {
+                            jTextField.setText(selected);
+                        }
                     }
 
                     suggestPopup.setVisible(false);
