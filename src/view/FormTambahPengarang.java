@@ -4,6 +4,7 @@ import java.util.Date;
 import java.sql.SQLException;
 import model.DbConn;
 import components.RoundedTextField;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -156,8 +157,10 @@ public class FormTambahPengarang extends javax.swing.JFrame {
         
         try {
             dbc.crStmt().executeUpdate(query);
+            
+            JOptionPane.showMessageDialog(this, "Pengarang berhasil ditambahkan");
         }catch (SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(this,"Error" + ex);
         }
     }
     

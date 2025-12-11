@@ -20,10 +20,10 @@ import javax.swing.event.DocumentListener;
 public class SugesPopUp {
 
     private final javax.swing.JTextField jTextField;
+    private boolean isiAnakan = false;
+    
     private ArrayList<String> listData = new ArrayList<>();
     private ArrayList<String[]> listDataArray = new ArrayList<>();
-
-    private boolean isiAnakan = false;
     private ArrayList<javax.swing.JTextField> listJt = new ArrayList<>();
 
     JPopupMenu suggestPopup = new JPopupMenu();
@@ -48,9 +48,9 @@ public class SugesPopUp {
     }
 
     public final void setinganUI() {
-        // ukuran minimal agar terlihat rapi
+
         suggestScroll.setPreferredSize(new Dimension(this.jTextField.getWidth(), 120));
-        suggestPopup.setFocusable(false);      // jangan ambil fokus
+        suggestPopup.setFocusable(false);
         suggestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         suggestPopup.add(suggestScroll);
@@ -63,7 +63,7 @@ public class SugesPopUp {
 
     public void active() {
 
-// --- dokument listener untuk live search ---
+// ---  dokument listener untuk live search ---
         this.jTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -77,18 +77,22 @@ public class SugesPopUp {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
+                cekInput();
             }
 
             private void cekInput() {
                 String input = jTextField.getText().toLowerCase().trim();
-
+                
+//                Jika kosong sembunyikan suggestPopup
                 if (input.isEmpty()) {
                     suggestPopup.setVisible(false);
                     return;
                 }
 
+//                Bikin Model List Default
                 DefaultListModel<String> model = new DefaultListModel<>();
 
+//                Jika list data tidak kosong tambahkan seluruh isi list data ke dalam model list
                 if (!listData.isEmpty()) {
 
                     for (String data : listData) {
@@ -97,6 +101,8 @@ public class SugesPopUp {
                             model.addElement(nama);
                         }
                     }
+                    
+//                    Jika list data kosong maka tambahkan isi list data array kedalam model list
                 } else {
 
                     for (String[] dataArray : listDataArray) {
@@ -107,14 +113,18 @@ public class SugesPopUp {
                     }
 
                 }
-
+                
+                
+//              Jika model list kosong maka sembunyikan pop up dan berhentikan fungsi
                 if (model.isEmpty()) {
                     suggestPopup.setVisible(false);
                     return;
                 }
 
+//                Masukkan model list kedalam suggestList
                 suggestList.setModel(model);
 
+                
                 // atur ukuran popup agar tidak terlalu kecil/terlalu besar
                 suggestScroll.setPreferredSize(new Dimension(jTextField.getWidth(), Math.min(120, model.getSize() * 20 + 4)));
                 suggestPopup.pack();
@@ -126,12 +136,15 @@ public class SugesPopUp {
                 jTextField.requestFocusInWindow();
             }
         });
-// --- klik pada suggestion untuk memilih ---
+        
+// ---  klik pada suggestion untuk memilih ---
         suggestList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     String selected = suggestList.getSelectedValue();
+                    
+//                    Jika isiAnakan true maka jalankan auto complit
                     if (isiAnakan) {
 
                         if (selected != null) {
@@ -161,19 +174,24 @@ public class SugesPopUp {
                                 break; // Hentikan loop setelah ketemu
                             }
                         }
+                        
+//                        Jika isiAnakan false text field dengan saran yang di seleksi
                     } else {
                         if (selected != null) {
                             jTextField.setText(selected);
                         }
                     }
 
+//                    sembunyikan suggesPopup
                     suggestPopup.setVisible(false);
+                    
+//                    Fokus kembali ke text field
                     jTextField.requestFocusInWindow();
                 }
             }
         });
 
-// --- keyboard: pindah ke suggestion dengan DOWN, lalu navigasi dan pilih dengan ENTER ---
+// ---  keyboard: pindah ke suggestion dengan DOWN, lalu navigasi dan pilih dengan ENTER ---
         this.jTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -244,7 +262,7 @@ public class SugesPopUp {
             }
         });
 
-// --- jika user klik di area lain, tutup popup ---
+// ---  jika user klik di area lain, tutup popup ---
         this.jTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {

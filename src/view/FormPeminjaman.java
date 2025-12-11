@@ -17,12 +17,11 @@ public class FormPeminjaman extends javax.swing.JFrame {
     ArrayList<String[]> listBuku = new ArrayList<>();
     ArrayList<String[]> listAnggota = new ArrayList<>();
 
-//    untuk Buku;
+    
     final DbConn dbc;
     final SugesPopUp spu1;
     final SugesPopUp spu2;
     
-//    untuk Anggota
     final SugesPopUp spu3;
 
     public FormPeminjaman() {
@@ -38,11 +37,12 @@ public class FormPeminjaman extends javax.swing.JFrame {
 //        tfAnggota
         ArrayList<javax.swing.JTextField> listTj3 = new ArrayList<>();
         
-
+        listTj1.add(jtIdBuku1);
         listTj1.add(jtPengarangBuku1);
         listTj1.add(jtPenerbitBuku1);
         listTj1.add(jtTahunTerbitBuku1);
 
+        listTj2.add(jtIdBuku2);
         listTj2.add(jtPengarangBuku2);
         listTj2.add(jtPenerbitBuku2);
         listTj2.add(jtTahunTerbitBuku2);
@@ -72,6 +72,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel20 = new javax.swing.JLabel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         judulForm = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -93,6 +94,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jtTahunTerbitBuku1 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jtIdBuku1 = new javax.swing.JTextField();
         jpBukuKedua = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jtJudulBuku2 = new javax.swing.JTextField();
@@ -102,6 +105,11 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jtPenerbitBuku2 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jtTahunTerbitBuku2 = new javax.swing.JTextField();
+        jtIdBuku2 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+
+        jLabel20.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel20.setText("Judul Buku");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulir Peminjaman");
@@ -191,6 +199,15 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jtTahunTerbitBuku1.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtTahunTerbitBuku1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
+        jLabel19.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel19.setText("Id Buku");
+
+        jtIdBuku1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtIdBuku1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpBukuPertamaLayout = new javax.swing.GroupLayout(jpBukuPertama);
         jpBukuPertama.setLayout(jpBukuPertamaLayout);
         jpBukuPertamaLayout.setHorizontalGroup(
@@ -198,18 +215,29 @@ public class FormPeminjaman extends javax.swing.JFrame {
             .addGroup(jpBukuPertamaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jpBukuPertamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtJudulBuku1)
-                    .addComponent(jtPengarangBuku1)
-                    .addComponent(jtPenerbitBuku1)
                     .addGroup(jpBukuPertamaLayout.createSequentialGroup()
                         .addGroup(jpBukuPertamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addGap(0, 202, Short.MAX_VALUE))
-                    .addComponent(jtTahunTerbitBuku1))
-                .addGap(14, 14, 14))
+                            .addComponent(jtPenerbitBuku1)
+                            .addGroup(jpBukuPertamaLayout.createSequentialGroup()
+                                .addGroup(jpBukuPertamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addGap(0, 202, Short.MAX_VALUE))
+                            .addComponent(jtTahunTerbitBuku1)
+                            .addComponent(jtPengarangBuku1))
+                        .addGap(14, 14, 14))
+                    .addGroup(jpBukuPertamaLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBukuPertamaLayout.createSequentialGroup()
+                        .addGroup(jpBukuPertamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtIdBuku1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtJudulBuku1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpBukuPertamaLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 209, Short.MAX_VALUE)))
+                        .addGap(14, 14, 14))))
         );
         jpBukuPertamaLayout.setVerticalGroup(
             jpBukuPertamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,6 +246,10 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtJudulBuku1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtIdBuku1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +262,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtTahunTerbitBuku1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(30, 30, 30))
         );
 
         jPanel1.add(jpBukuPertama);
@@ -262,6 +294,9 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jtTahunTerbitBuku2.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtTahunTerbitBuku2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
+        jLabel21.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
+        jLabel21.setText("Id Buku");
+
         javax.swing.GroupLayout jpBukuKeduaLayout = new javax.swing.GroupLayout(jpBukuKedua);
         jpBukuKedua.setLayout(jpBukuKeduaLayout);
         jpBukuKeduaLayout.setHorizontalGroup(
@@ -269,17 +304,19 @@ public class FormPeminjaman extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBukuKeduaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jpBukuKeduaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jtIdBuku2)
                     .addComponent(jtTahunTerbitBuku2)
-                    .addComponent(jtJudulBuku2)
                     .addComponent(jtPengarangBuku2)
                     .addComponent(jtPenerbitBuku2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtJudulBuku2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpBukuKeduaLayout.createSequentialGroup()
-                        .addGroup(jpBukuKeduaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18))
-                        .addGap(0, 199, Short.MAX_VALUE)))
+                        .addGroup(jpBukuKeduaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
         );
         jpBukuKeduaLayout.setVerticalGroup(
@@ -289,6 +326,10 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtJudulBuku2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtIdBuku2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,7 +342,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtTahunTerbitBuku2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(30, 30, 30))
         );
 
         jPanel1.add(jpBukuKedua);
@@ -364,7 +405,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -378,15 +420,16 @@ public class FormPeminjaman extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
+    private void jtIdBuku1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIdBuku1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtIdBuku1ActionPerformed
+
     public void tambahPeminjaman() {
 
 //        AMBIL INPUT FORM
         String idAnggota = tfIDAnggota.getText();
-        Date tglPinjam = jdTanggalPinjam.getDate();
-
-        
-        
-        
+        String id_buku = jtIdBuku1.getText();
+        Date tglPinjam = jdTanggalPinjam.getDate(); 
         Calendar cal = Calendar.getInstance();
         cal.setTime(tglPinjam);
 
@@ -399,18 +442,14 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
         System.out.println(tanggalJatuhTempo);
 
-//        VALIDASI INPUT SUDAH LENGKAP?
-//        if (idAnggota.isEmpty() || id_buku1 == 0 || id_peminjaman == 0) {
-//            JOptionPane.showMessageDialog(null, "Data belum lengkap!");
-//            return;
-//        }
 
         // =============================
         // SUSUN QUERY INSERT PEMINJAMAN
         // =============================
         String query1
-                = "INSERT INTO peminjaman (id_anggota, tanggal_pinjam, tanggal_jatuh_tempo) VALUES ("
+                = "INSERT INTO peminjaman (id_anggota, id_buku, tanggal_pinjam, tanggal_jatuh_tempo) VALUES ("
                 + "'" + idAnggota + "', "
+                + "'" + id_buku + "', "
                 + "'" + tanggalPinjam + "', "
                 + "'" + tanggalJatuhTempo + "'"
                 + ");";
@@ -436,7 +475,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
         ArrayList<String[]> data = new ArrayList<>();
 
 //        ASUMSIKAN JUDUL BUKU TIDAK DUPLIKAT
-        String query = "SELECT b.judul, p.nama_pengarang, pn.nama_penerbit, "
+        String query = "SELECT  b.judul, b.id_buku, p.nama_pengarang, pn.nama_penerbit, "
                 + "b.tahun_terbit, b.eksemplar, b.sumber, b.tanggal_terima "
                 + "FROM buku b "
                 + "LEFT JOIN pengarang p ON b.id_pengarang = p.id_pengarang "
@@ -448,11 +487,20 @@ public class FormPeminjaman extends javax.swing.JFrame {
             while (rs.next()) {
                 data.add(new String[]{
                     rs.getString("judul"),
+                    rs.getString("id_buku"),
                     rs.getString("nama_pengarang"),
                     rs.getString("nama_penerbit"),
                     rs.getString("tahun_terbit")
                 });
             }
+            
+            for(int i = 0; i < data.size() ; i++){
+                System.out.println(data.get(i)[0]);
+            }
+            
+            dbc.putus();
+            
+            
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -478,6 +526,10 @@ public class FormPeminjaman extends javax.swing.JFrame {
                     rs.getString("tanggal_lahir")
                     
                 });
+            }
+            
+            for(int i = 0; i < data.size() ; i++){
+                System.out.println(data.get(i)[0]);
             }
 
             dbc.putus();
@@ -525,6 +577,9 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -533,6 +588,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jdTanggalPinjam;
     private javax.swing.JPanel jpBukuKedua;
     private javax.swing.JPanel jpBukuPertama;
+    private javax.swing.JTextField jtIdBuku1;
+    private javax.swing.JTextField jtIdBuku2;
     private javax.swing.JTextField jtJudulBuku1;
     private javax.swing.JTextField jtJudulBuku2;
     private javax.swing.JTextField jtNamaAnggota;

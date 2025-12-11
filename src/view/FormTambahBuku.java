@@ -237,9 +237,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         jtJudulBuku.setText("");
-        jsEksempler.setValue(evt);
         jtSumber.setText("");
-        jdTanggalTerima.setDateFormatString("");
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
@@ -271,7 +269,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSimpanActionPerformed
 
-    public static void tambahBuku(String judul, int pengarang, int penerbit, String tahunTerbit, int eksemplar, String sumber, java.sql.Date tanggalTerima) {
+    public void tambahBuku(String judul, int pengarang, int penerbit, String tahunTerbit, int eksemplar, String sumber, java.sql.Date tanggalTerima) {
 
         String query = "INSERT INTO buku (judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima) "
                 + "VALUES ('" + judul + "', " + pengarang + ", " + penerbit + ", "
@@ -281,10 +279,12 @@ public class FormTambahBuku extends javax.swing.JFrame {
             dbc.mkConn();
             dbc.crStmt().executeUpdate(query);
             System.out.println("buku di tambahkan");
+            
+            JOptionPane.showMessageDialog(this, "Buku berhasil di tambahkan");
 
             dbc.putus();
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(this,"gagal input buku karena :"+ ex);
         }
     }
 
