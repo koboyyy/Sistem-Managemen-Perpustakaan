@@ -1,6 +1,6 @@
 package view;
 
-import controller.SugesPopUp;
+import components.SugesPopUp;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -202,11 +202,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         jLabel19.setText("Id Buku");
 
-        jtIdBuku1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtIdBuku1ActionPerformed(evt);
-            }
-        });
+        jtIdBuku1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         javax.swing.GroupLayout jpBukuPertamaLayout = new javax.swing.GroupLayout(jpBukuPertama);
         jpBukuPertama.setLayout(jpBukuPertamaLayout);
@@ -249,7 +245,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtIdBuku1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtIdBuku1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -294,6 +290,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
         jtTahunTerbitBuku2.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         jtTahunTerbitBuku2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
+        jtIdBuku2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
         jLabel21.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         jLabel21.setText("Id Buku");
 
@@ -329,7 +327,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtIdBuku2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtIdBuku2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -419,10 +417,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
-
-    private void jtIdBuku1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIdBuku1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtIdBuku1ActionPerformed
 
     public void tambahPeminjaman() {
 

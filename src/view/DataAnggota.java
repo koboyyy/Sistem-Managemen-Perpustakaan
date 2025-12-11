@@ -19,7 +19,7 @@ public class DataAnggota extends javax.swing.JPanel {
 
     public final void showDataAnggota() {
     
-    String query = "SELECT nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp FROM anggota";
+    String query = "SELECT nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp, email FROM anggota";
 
     try {
         ResultSet rs = dbc.crStmt().executeQuery(query);
@@ -37,7 +37,8 @@ public class DataAnggota extends javax.swing.JPanel {
                 rs.getString("nik"),
                 rs.getString("alamat"),
                 rs.getString("jenis_kelamin"),
-                rs.getString("no_hp")
+                rs.getString("no_hp"),
+                rs.getString("email")
             });
         }
 
@@ -70,13 +71,13 @@ public class DataAnggota extends javax.swing.JPanel {
 
         jtblAnggota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nama Lengkap", "Tempat Lahir", "Tanggal Lahir", "NIK", "Alamat", "Jenis Kelamin", "Nomor HP"
+                "Nama Lengkap", "Tempat Lahir", "Tanggal Lahir", "NIK", "Alamat", "Jenis Kelamin", "Nomor HP", "Email"
             }
         ));
         jScrollPane2.setViewportView(jtblAnggota);
