@@ -3,7 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import model.DbConn;
+import controller.DbConn;
 import components.RoundedTextField;
 
 /**
@@ -14,6 +14,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormTambahBuku.class.getName());
 
+//    Koneksi database
     static DbConn dbc = new DbConn();
 
     public FormTambahBuku() {
@@ -246,25 +247,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
-    public void simpanBuku(String judul, int pengarang, int penerbit, java.sql.Date tahunTerbit, int eksemplar, String sumber, java.sql.Date tanggalTerima) {
-
-        String query = "INSERT INTO buku (judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima) "
-                + "VALUES ('" + judul + "', " + pengarang + ", " + penerbit + ", "
-                + tahunTerbit + ", " + eksemplar + ", '" + sumber + "', '" + tanggalTerima + "');";
-
-        try {
-            dbc.mkConn();
-            dbc.crStmt().executeUpdate(query);
-            System.out.println("buku di tambahkan");
-            
-            JOptionPane.showMessageDialog(this, "Buku berhasil di tambahkan");
-
-            dbc.putus();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"gagal input buku karena :"+ ex);
-        }
-    }
-
+//    Method isi nilai chackbox
     final public void isiChackBoxs() {
         try {
             ResultSet rsPengarang = dbc.crStmt().executeQuery("SELECT * FROM pengarang");
@@ -284,7 +267,26 @@ public class FormTambahBuku extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
+ 
+//    Method simpan buku
+    public void simpanBuku(String judul, int pengarang, int penerbit, java.sql.Date tahunTerbit, int eksemplar, String sumber, java.sql.Date tanggalTerima) {
 
+        String query = "INSERT INTO buku (judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima) "
+                + "VALUES ('" + judul + "', " + pengarang + ", " + penerbit + ", "
+                + tahunTerbit + ", " + eksemplar + ", '" + sumber + "', '" + tanggalTerima + "');";
+
+        try {
+            dbc.mkConn();
+            dbc.crStmt().executeUpdate(query);
+            System.out.println("buku di tambahkan");
+            
+            JOptionPane.showMessageDialog(this, "Buku berhasil di tambahkan");
+
+            dbc.putus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,"gagal input buku karena :"+ ex);
+        }
+    }
     
     public static void main(String args[]) {
 

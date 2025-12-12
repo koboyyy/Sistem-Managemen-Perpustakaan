@@ -3,7 +3,7 @@ package view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.DbConn;
+import controller.DbConn;
 /**
  *
  * @author evo

@@ -2,7 +2,7 @@ package view;
 
 import java.util.Date;
 import java.sql.SQLException;
-import model.DbConn;
+import controller.DbConn;
 import components.RoundedTextField;
 import javax.swing.JOptionPane;
 

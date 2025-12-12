@@ -3,7 +3,7 @@ package view;
 import components.RoundedTextField;
 import java.sql.SQLException;
 import java.util.Date;
-import model.DbConn;
+import controller.DbConn;
 
 /**
  *

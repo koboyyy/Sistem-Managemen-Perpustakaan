@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import model.DbConn;
+import controller.DbConn;
 
 public class FormPeminjaman extends javax.swing.JFrame {
 
@@ -420,14 +420,12 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
     public void tambahPeminjaman() {
 
-//        AMBIL INPUT FORM
         String idAnggota = tfIDAnggota.getText();
         String id_buku = jtIdBuku1.getText();
         Date tglPinjam = jdTanggalPinjam.getDate(); 
         Calendar cal = Calendar.getInstance();
         cal.setTime(tglPinjam);
 
-// Tambahkan 7 hari
         cal.add(Calendar.DAY_OF_MONTH, 7);
         Date jatuhTempo = cal.getTime();
 
@@ -450,10 +448,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 + ");";
 
         try {
-            // EXECUTE QUERY
-            dbc.crStmt().executeUpdate(query1); // simpan peminjaman
+            dbc.crStmt().executeUpdate(query1);
 
-            System.out.println("Insert peminjaman complete.");
             JOptionPane.showMessageDialog(null, "Peminjaman berhasil disimpan!");
 
             dbc.putus();
@@ -469,7 +465,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
         ArrayList<String[]> data = new ArrayList<>();
 
-//        ASUMSIKAN JUDUL BUKU TIDAK DUPLIKAT
         String query = "SELECT  b.judul, b.id_buku, p.nama_pengarang, pn.nama_penerbit, "
                 + "b.tahun_terbit, b.eksemplar, b.sumber, b.tanggal_terima "
                 + "FROM buku b "
@@ -489,13 +484,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 });
             }
             
-            for(int i = 0; i < data.size() ; i++){
-                System.out.println(data.get(i)[0]);
-            }
-            
             dbc.putus();
-            
-            
         } catch (SQLException ex) {
             System.out.println(ex);
         }
