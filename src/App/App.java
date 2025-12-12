@@ -30,7 +30,6 @@ public class App extends javax.swing.JFrame {
         menuRiwayatPeminjaman = new javax.swing.JLabel();
         menuDataBuku = new javax.swing.JLabel();
         menuPeminjaman = new javax.swing.JLabel();
-        menuPengembalian = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jpKanan = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -77,16 +76,6 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        menuPengembalian.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        menuPengembalian.setForeground(new java.awt.Color(255, 255, 255));
-        menuPengembalian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-return-book-24 (1).png"))); // NOI18N
-        menuPengembalian.setText("Pengembalian");
-        menuPengembalian.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuPengembalianMouseClicked(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-member-24.png"))); // NOI18N
@@ -104,7 +93,6 @@ public class App extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menuPengembalian)
                     .addComponent(menuPeminjaman)
                     .addComponent(menuDataBuku)
                     .addComponent(menuRiwayatPeminjaman)
@@ -120,8 +108,6 @@ public class App extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(22, 22, 22)
                 .addComponent(menuPeminjaman)
-                .addGap(18, 18, 18)
-                .addComponent(menuPengembalian)
                 .addGap(18, 18, 18)
                 .addComponent(menuRiwayatPeminjaman)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -229,10 +215,6 @@ public class App extends javax.swing.JFrame {
         pn_utama.revalidate();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void menuPengembalianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPengembalianMouseClicked
-        new FormPengembalian().setVisible(true);
-    }//GEN-LAST:event_menuPengembalianMouseClicked
-
     private void menuPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPeminjamanMouseClicked
         new FormPeminjaman().setVisible(true);
     }//GEN-LAST:event_menuPeminjamanMouseClicked
@@ -246,7 +228,7 @@ public class App extends javax.swing.JFrame {
 
     private void menuRiwayatPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRiwayatPeminjamanMouseClicked
         pn_utama.removeAll();
-        pn_utama.add(new RiwayatPeminjaman());
+        pn_utama.add(new Transaksi());
         pn_utama.repaint();
         pn_utama.revalidate();
     }//GEN-LAST:event_menuRiwayatPeminjamanMouseClicked
@@ -283,7 +265,6 @@ public class App extends javax.swing.JFrame {
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel menuDataBuku;
     private javax.swing.JLabel menuPeminjaman;
-    private javax.swing.JLabel menuPengembalian;
     private javax.swing.JLabel menuRiwayatPeminjaman;
     private javax.swing.JPanel pn_utama;
     // End of variables declaration//GEN-END:variables

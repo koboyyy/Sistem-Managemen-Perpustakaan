@@ -441,11 +441,12 @@ public class FormPeminjaman extends javax.swing.JFrame {
         // SUSUN QUERY INSERT PEMINJAMAN
         // =============================
         String query1
-                = "INSERT INTO peminjaman (id_anggota, id_buku, tanggal_pinjam, tanggal_jatuh_tempo) VALUES ("
+                = "INSERT INTO transaksi (id_anggota, id_buku, tanggal_pinjam, tanggal_jatuh_tempo, status_peminjaman, denda) VALUES ("
                 + "'" + idAnggota + "', "
                 + "'" + id_buku + "', "
                 + "'" + tanggalPinjam + "', "
-                + "'" + tanggalJatuhTempo + "'"
+                + "'" + tanggalJatuhTempo + "',"
+                + "'Di Pinjam', " +  0
                 + ");";
 
         try {

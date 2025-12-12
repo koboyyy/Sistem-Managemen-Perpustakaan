@@ -94,7 +94,6 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="menuPengembalian" min="-2" max="-2" attributes="0"/>
                               <Component id="menuPeminjaman" min="-2" max="-2" attributes="0"/>
                               <Component id="menuDataBuku" min="-2" max="-2" attributes="0"/>
                               <Component id="menuRiwayatPeminjaman" min="-2" max="-2" attributes="0"/>
@@ -113,8 +112,6 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="menuPeminjaman" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="menuPengembalian" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="menuRiwayatPeminjaman" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
@@ -172,23 +169,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuPeminjamanMouseClicked"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="menuPengembalian">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="SansSerif" size="16" style="0"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/img/icon/icons8-return-book-24 (1).png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Pengembalian"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuPengembalianMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">

@@ -46,7 +46,7 @@ public class FormTambahPengarang extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Tambah Penerbit");
+        jLabel1.setText("Tambah Pengarang");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -68,7 +68,7 @@ public class FormTambahPengarang extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel4.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        jLabel4.setText("Nama Penerbit");
+        jLabel4.setText("Nama Pengarang");
 
         jtNamaPengarang.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
@@ -104,7 +104,7 @@ public class FormTambahPengarang extends javax.swing.JFrame {
                             .addComponent(jtNamaPengarang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 267, Short.MAX_VALUE))))
+                                .addGap(0, 250, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSimpan)

@@ -168,7 +168,6 @@ public class DataBuku extends javax.swing.JPanel {
         new FormTambahPenerbit().setVisible(true);
     }//GEN-LAST:event_jbTambahPenerbitActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
