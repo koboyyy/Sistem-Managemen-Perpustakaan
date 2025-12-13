@@ -38,8 +38,6 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaAlamatIdentitas = new javax.swing.JTextArea();
-        jcmbProvinsi = new javax.swing.JComboBox<>();
-        jcombKota = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jtNomorHp = new RoundedTextField(20);
         jLabel12 = new javax.swing.JLabel();
@@ -92,12 +90,6 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
         jtaAlamatIdentitas.setToolTipText("");
         jScrollPane1.setViewportView(jtaAlamatIdentitas);
 
-        jcmbProvinsi.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jcmbProvinsi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Provinsi", "Aceh", "Sumatera Utara", "Sumatera Barat", "Riau", "Jambi", "Sumatera Selatan", "Bengkulu", "Lampung", "Kepulauan Bangka Belitung", "Kepulauan Riau", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa Timur", "Banten", "Bali", "Nusa Tenggara Barat", "Nusa Tenggara Timur", "Kalimantan Barat", "Kalimantan Tengah", "Kalimantan Selatan", "Kalimantan Timur", "Kalimantan Utara", "Sulawesi Utara", "Sulawesi Tengah", "Sulawesi Selatan", "Sulawesi Tenggara", "Gorontalo", "Sulawesi Barat", "Maluku", "Maluku Utara", "Papua", "Papua Barat", "Papua Selatan", "Papua Tengah", "Papua Pegunungan", "Papua Barat Daya" }));
-
-        jcombKota.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jcombKota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kota", " " }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -105,14 +97,10 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jcmbProvinsi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcombKota, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -122,11 +110,7 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcmbProvinsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcombKota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         jLabel2.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
@@ -295,15 +279,15 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
         java.sql.Date tanggal_lahir = new java.sql.Date(jd.getTime());
 
         String query = "INSERT INTO anggota "
-                + "(nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp, email) "
+                + "(nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, email, no_hp) "
                 + "VALUES ('" + nama_lengkap + "', '"
                 + tempat_lahir + "', '"
                 + tanggal_lahir + "', '"
                 + nik + "', '"
                 + alamat + "', '"
                 + jenis_kelamin + "', '"
-                + no_hp + "','"
-                + email + "');";
+                + email + "','"
+                + no_hp + "');";
 
         try {
             dbc.crStmt().executeUpdate(query);
@@ -355,8 +339,6 @@ public class FormPendaftaranAnggota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcmbJenisKelamin;
-    private javax.swing.JComboBox<String> jcmbProvinsi;
-    private javax.swing.JComboBox<String> jcombKota;
     private com.toedter.calendar.JDateChooser jdTanggalLahir;
     private javax.swing.JTextField jtEmail;
     private javax.swing.JTextField jtNamaLengkap;

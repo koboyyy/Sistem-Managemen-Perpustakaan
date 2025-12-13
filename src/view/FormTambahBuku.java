@@ -141,24 +141,22 @@ public class FormTambahBuku extends javax.swing.JFrame {
                             .addComponent(cbPenerbit, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtJudulBuku, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtSumber, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSimpan)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBatal))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnSimpan)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jdTanggalTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(156, 156, 156)))
-                                .addComponent(btnBatal)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jdTanggalTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(156, 261, Short.MAX_VALUE)))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +199,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -209,7 +207,9 @@ public class FormTambahBuku extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,23 +224,8 @@ public class FormTambahBuku extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        String judul = jtJudulBuku.getText();
-        int id_pengarang = cbPengarang.getSelectedIndex();
-        int id_penerbit = cbPenerbit.getSelectedIndex();
-        String sumber = jtSumber.getText();
-        int eksemplar = (Integer) jsEksempler.getValue();
-        java.sql.Date tahun_terbit = new java.sql.Date(jdTahunTerbit.getDate().getTime());
-        java.sql.Date tanggal_terima = new java.sql.Date(jdTanggalTerima.getDate().getTime());
-
-        simpanBuku(judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima);
-
-        jtJudulBuku.setText("");
-        jtSumber.setText("");
-        cbPengarang.setSelectedIndex(0);
-        cbPenerbit.setSelectedIndex(0);
-        jsEksempler.setValue(0);
-        jdTahunTerbit.setCalendar(null);
-        jdTanggalTerima.setCalendar(null);
+        simpanBuku(); 
+        reset();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
@@ -269,11 +254,20 @@ public class FormTambahBuku extends javax.swing.JFrame {
     }
  
 //    Method simpan buku
-    public void simpanBuku(String judul, int pengarang, int penerbit, java.sql.Date tahunTerbit, int eksemplar, String sumber, java.sql.Date tanggalTerima) {
+    public void simpanBuku() {
+        
+        String judul = jtJudulBuku.getText();
+        int id_pengarang = cbPengarang.getSelectedIndex();
+        int id_penerbit = cbPenerbit.getSelectedIndex();
+        String sumber = jtSumber.getText();
+        int eksemplar = (Integer) jsEksempler.getValue();
+        java.sql.Date tahun_terbit = new java.sql.Date(jdTahunTerbit.getDate().getTime());
+        java.sql.Date tanggal_terima = new java.sql.Date(jdTanggalTerima.getDate().getTime());
+        
 
         String query = "INSERT INTO buku (judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima) "
-                + "VALUES ('" + judul + "', " + pengarang + ", " + penerbit + ", "
-                + tahunTerbit + ", " + eksemplar + ", '" + sumber + "', '" + tanggalTerima + "');";
+                + "VALUES ('" + judul + "', " + id_pengarang + ", " + id_penerbit + ", "
+                + tahun_terbit + ", " + eksemplar + ", '" + sumber + "', '" + tanggal_terima + "');";
 
         try {
             dbc.mkConn();
@@ -287,6 +281,18 @@ public class FormTambahBuku extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"gagal input buku karena :"+ ex);
         }
     }
+    
+//    Method reset field inputan
+    public void reset() {
+        jtJudulBuku.setText("");
+        jtSumber.setText("");
+        cbPengarang.setSelectedIndex(0);
+        cbPenerbit.setSelectedIndex(0);
+        jsEksempler.setValue(0);
+        jdTahunTerbit.setCalendar(null);
+        jdTanggalTerima.setCalendar(null);
+    }
+    
     
     public static void main(String args[]) {
 

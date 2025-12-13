@@ -5,11 +5,14 @@
         <group>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/App/App.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/DataBuku.java</file>
-            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormPengembalian.java</file>
-            <file>file:/home/evo/SistemManajemenPerpustakaan/src/controller/SugesPopUp.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/DataAnggota.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/Transaksi.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormPeminjaman.java</file>
-            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/RiwayatPeminjaman.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/controller/DbConn.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormTambahPengarang.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormTambahBuku.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormTambahPenerbit.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormPendaftaranAnggota.java</file>
         </group>
     </open-files>
 </project-private>
