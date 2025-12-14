@@ -13,8 +13,14 @@
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormTambahBuku.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormTambahPenerbit.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/FormPendaftaranAnggota.java</file>
-            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/Statistik.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/view/Dashboard.java</file>
             <file>file:/home/evo/SistemManajemenPerpustakaan/src/App/Login.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/components/jtable_custom.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/img/icon/icons8-dashboard-24.png</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/img/icon/icons8-dashboard-layout-24.png</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/img/icon/Books_2_40672%20(2).png</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/components/RoundedTextField.java</file>
+            <file>file:/home/evo/SistemManajemenPerpustakaan/src/components/SugesPopUp.java</file>
         </group>
     </open-files>
 </project-private>

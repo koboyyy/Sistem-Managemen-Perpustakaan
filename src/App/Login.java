@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         jtfkatasandi = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jbtnLogin = new javax.swing.JButton();
+        jlWarning = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -40,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1465, 900));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -58,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         jtfkatasandi.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jtfkatasandi.setMargin(new java.awt.Insets(6, 6, 2, 6));
 
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
         jCheckBox1.setText("Ingat Saya");
 
@@ -71,6 +73,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jlWarning.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        jlWarning.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -80,13 +85,14 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtfkatasandi)
+                    .addComponent(jtfnama)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1))
-                        .addGap(0, 282, Short.MAX_VALUE))
-                    .addComponent(jtfnama))
+                            .addComponent(jCheckBox1)
+                            .addComponent(jlWarning))
+                        .addGap(0, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -100,9 +106,11 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfkatasandi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jlWarning)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -153,6 +161,7 @@ public class Login extends javax.swing.JFrame {
             dispose();
             System.out.println("Login Berhasil");
         } else {
+            jlWarning.setText("Nama atau kata sandi salah");
             System.out.println("Login Gagal");
         }
     }//GEN-LAST:event_jbtnLoginActionPerformed
@@ -202,6 +211,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JButton jbtnLogin;
+    private javax.swing.JLabel jlWarning;
     private javax.swing.JTextField jtfkatasandi;
     private javax.swing.JTextField jtfnama;
     // End of variables declaration//GEN-END:variables
