@@ -100,4 +100,9 @@ public class jtable_custom extends JTable {
 
     }
 
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false; // SEMUA CELL TIDAK BISA DIEDIT
+    }
+
 }

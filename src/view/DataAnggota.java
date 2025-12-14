@@ -67,6 +67,7 @@ public class DataAnggota extends javax.swing.JPanel {
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-member-24 (1).png"))); // NOI18N
         jLabel2.setText("Data Anggota");
 
         jtblAnggota.setModel(new javax.swing.table.DefaultTableModel(
