@@ -105,7 +105,6 @@ public class Dashboard extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
@@ -121,12 +120,17 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jlJumlahPengembalian = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(1280, 32767));
+        setMinimumSize(new java.awt.Dimension(1015, 0));
+        setPreferredSize(new java.awt.Dimension(1015, 0));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-dashboard-layout-24.png"))); // NOI18N
         jLabel2.setText("Dashboard");
 
+        jPanel2.setMaximumSize(new java.awt.Dimension(1280, 32767));
+        jPanel2.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.GridLayout(1, 0, 14, 0));
 
@@ -137,7 +141,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Buku Tersedia");
 
-        jlJumlahBuku.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jlJumlahBuku.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
         jlJumlahBuku.setForeground(new java.awt.Color(255, 255, 255));
         jlJumlahBuku.setText("0");
 
@@ -146,20 +150,20 @@ public class Dashboard extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlJumlahBuku)
                     .addComponent(jLabel5))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlJumlahBuku)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel2.add(kGradientPanel1);
@@ -171,7 +175,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Anggota");
 
-        jlJumlahAnggota.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jlJumlahAnggota.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
         jlJumlahAnggota.setForeground(new java.awt.Color(255, 255, 255));
         jlJumlahAnggota.setText("0");
 
@@ -180,20 +184,19 @@ public class Dashboard extends javax.swing.JPanel {
         kGradientPanel2Layout.setHorizontalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(24, 24, 24)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlJumlahAnggota)
                     .addComponent(jLabel1))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap())
         );
         kGradientPanel2Layout.setVerticalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlJumlahAnggota)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(jlJumlahAnggota))
         );
 
         jPanel2.add(kGradientPanel2);
@@ -205,7 +208,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Total Transaksi");
 
-        jlJumlahTransaksi.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jlJumlahTransaksi.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
         jlJumlahTransaksi.setForeground(new java.awt.Color(255, 255, 255));
         jlJumlahTransaksi.setText("0");
 
@@ -214,20 +217,19 @@ public class Dashboard extends javax.swing.JPanel {
         kGradientPanel3Layout.setHorizontalGroup(
             kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(24, 24, 24)
                 .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlJumlahTransaksi)
                     .addComponent(jLabel3))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap())
         );
         kGradientPanel3Layout.setVerticalGroup(
             kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlJumlahTransaksi)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(jlJumlahTransaksi))
         );
 
         jPanel2.add(kGradientPanel3);
@@ -239,7 +241,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total Pengembalian");
 
-        jlJumlahPengembalian.setFont(new java.awt.Font("Liberation Sans", 1, 36)); // NOI18N
+        jlJumlahPengembalian.setFont(new java.awt.Font("Liberation Sans", 1, 30)); // NOI18N
         jlJumlahPengembalian.setForeground(new java.awt.Color(255, 255, 255));
         jlJumlahPengembalian.setText("0");
 
@@ -248,58 +250,42 @@ public class Dashboard extends javax.swing.JPanel {
         kGradientPanel4Layout.setHorizontalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(27, 27, 27)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlJumlahPengembalian)
                     .addComponent(jLabel4))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap())
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlJumlahPengembalian)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(jlJumlahPengembalian))
         );
 
         jPanel2.add(kGradientPanel4);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(20, 20, 20))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(477, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(402, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -309,7 +295,6 @@ public class Dashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jlJumlahAnggota;
     private javax.swing.JLabel jlJumlahBuku;

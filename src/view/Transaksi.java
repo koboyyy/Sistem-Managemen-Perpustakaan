@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javax.swing.JOptionPane;
 import controller.DbConn;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,18 +18,29 @@ import controller.DbConn;
  */
 public class Transaksi extends javax.swing.JPanel {
 
-    // Koneksi Database
+    // Koneksi Database dan array list untuk menyimpan data
     final DbConn dbc = new DbConn();
+    ArrayList<String[]> dataPeminjaman = new ArrayList<>();
+    ArrayList<String[]> dataRiwayatPengembalian = new ArrayList<>();
 
     public Transaksi() {
         initComponents();
-        setTabelTransaksi();
-        setTabelRiwayatPengembalian();
+        panggilMethod();
     }
 
-    //Method Set tabel transaksi
-    public final void setTabelTransaksi() {
+    // Memanggil method
+    public final void panggilMethod() {
+        getDataPeminjaman();
+        getDataRiwayatPengembalian();
+        setTabelTransaksi(dataPeminjaman);
+        setTabelRiwayatPengembalian(dataRiwayatPengembalian);
+        
+        cariPeminjaman();
+        cariRiwayatPengembalian();
+    }
 
+    // Mengembil data peminjaman
+    public final void getDataPeminjaman() {
         String query
                 = "SELECT id_transaksi, nama_lengkap, judul, tanggal_pinjam, tanggal_jatuh_tempo, status_peminjaman FROM transaksi "
                 + "INNER JOIN anggota "
@@ -37,30 +51,78 @@ public class Transaksi extends javax.swing.JPanel {
         try {
             ResultSet rs = dbc.crStmt().executeQuery(query);
 
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtblPeminjaman.getModel();
-
-            model.setRowCount(0);
-
             while (rs.next()) {
-
-                model.addRow(new Object[]{
+                dataPeminjaman.add(new String[]{
                     rs.getString("id_transaksi"),
                     rs.getString("nama_lengkap"),
                     rs.getString("judul"),
                     rs.getString("tanggal_pinjam"),
                     rs.getString("tanggal_jatuh_tempo"),
-                    rs.getString("status_peminjaman"),
-                    "Ubah Status"
-                });
-
-                System.out.println();
+                    rs.getString("status_peminjaman"),});
             }
-
-            dbc.putus();
-
         } catch (SQLException ex) {
-            System.out.println(ex);
-            System.out.println("Pengambilan data transaksi gagal");
+            JOptionPane.showMessageDialog(jPanel1, "errorrrrr: " + ex);
+        }
+    }
+
+    // Mengambil data riwayat pengembalian
+    public final void getDataRiwayatPengembalian() {
+        String query
+                = "SELECT nama_lengkap, judul, tanggal_pinjam, tanggal_jatuh_tempo, tanggal_kembali, denda FROM pengembalian "
+                + "INNER JOIN transaksi "
+                + "ON pengembalian.id_transaksi = transaksi.id_transaksi "
+                + "INNER JOIN anggota "
+                + "ON anggota.id_anggota = transaksi.id_anggota "
+                + "INNER JOIN buku "
+                + "ON buku.id_buku = transaksi.id_buku ;";
+
+        try {
+            ResultSet rs = dbc.crStmt().executeQuery(query);
+
+            while (rs.next()) {
+
+                String tanggal_kembali = rs.getString("tanggal_kembali");
+                String denda = rs.getString("denda");
+
+                if (tanggal_kembali == null) {
+                    tanggal_kembali = "-";
+                }
+
+                if (denda.equals("0")) {
+                    denda = "-";
+                } else {
+                    denda = "Rp. " + denda;
+                }
+
+                dataRiwayatPengembalian.add(new String[]{
+                    rs.getString("nama_lengkap"),
+                    rs.getString("judul"),
+                    rs.getString("tanggal_pinjam"),
+                    rs.getString("tanggal_jatuh_tempo"),
+                    tanggal_kembali,
+                    denda,});
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(jPanel1, "errorrrrr: " + ex);
+        }
+    }
+
+    // Method Set tabel transaksi
+    public final void setTabelTransaksi(ArrayList<String[]> dataPeminjaman) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtblPeminjaman.getModel();
+
+        model.setRowCount(0);
+
+        for (int i = 0; i < dataPeminjaman.size(); i++) {
+            model.addRow(new Object[]{
+                dataPeminjaman.get(i)[0],
+                dataPeminjaman.get(i)[1],
+                dataPeminjaman.get(i)[2],
+                dataPeminjaman.get(i)[3],
+                dataPeminjaman.get(i)[4],
+                dataPeminjaman.get(i)[5],
+                "Ubah Status"
+            });
         }
 
         // Aktifkan kolom ubah status
@@ -83,23 +145,122 @@ public class Transaksi extends javax.swing.JPanel {
         });
     }
 
+    // Method set tabel riwayat pengembalian
+    public final void setTabelRiwayatPengembalian(ArrayList<String[]> dataRiwayatPengembalian) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtblRiwayatPengembalian.getModel();
+
+        model.setRowCount(0);
+
+        for (int i = 0; i < dataRiwayatPengembalian.size(); i++) {
+            model.addRow(new Object[]{
+                dataRiwayatPengembalian.get(i)[0],
+                dataRiwayatPengembalian.get(i)[1],
+                dataRiwayatPengembalian.get(i)[2],
+                dataRiwayatPengembalian.get(i)[3],
+                dataRiwayatPengembalian.get(i)[4],
+                dataRiwayatPengembalian.get(i)[5],});
+        }
+
+    }
+
+    // Method cari data peminjaman
+    public final void cariPeminjaman() {
+        jtxtPeminjaman.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+
+                    System.out.println("Enter");
+                    String keyword = jtxtPeminjaman.getText();
+
+                    ArrayList<String[]> listPencarianSaatIni = new ArrayList<>();
+
+                    if (adalahAngka(keyword)) {
+                        for (int i = 0; i < dataPeminjaman.size(); i++) {
+
+                            if (dataPeminjaman.get(i)[0].toLowerCase().contains(keyword)) {
+
+                                listPencarianSaatIni.add(new String[]{
+                                    dataPeminjaman.get(i)[0],
+                                    dataPeminjaman.get(i)[1],
+                                    dataPeminjaman.get(i)[2],
+                                    dataPeminjaman.get(i)[3],
+                                    dataPeminjaman.get(i)[4],
+                                    dataPeminjaman.get(i)[5],});
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < dataPeminjaman.size(); i++) {
+
+                            if (dataPeminjaman.get(i)[1].toLowerCase().contains(keyword)) {
+
+                                listPencarianSaatIni.add(new String[]{
+                                    dataPeminjaman.get(i)[0],
+                                    dataPeminjaman.get(i)[1],
+                                    dataPeminjaman.get(i)[2],
+                                    dataPeminjaman.get(i)[3],
+                                    dataPeminjaman.get(i)[4],
+                                    dataPeminjaman.get(i)[5],});
+                            }
+                        }
+                    }
+
+                    setTabelTransaksi(listPencarianSaatIni);
+                }
+            }
+        });
+    }
+
+    // Method cari data riwayat peminjaman
+    public final void cariRiwayatPengembalian() {
+        jtxtRiwayatPengembalian.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+
+                    System.out.println("Enter");
+                    String keyword = jtxtRiwayatPengembalian.getText();
+
+                    ArrayList<String[]> listPencarianSaatIni = new ArrayList<>();
+
+                    for (int i = 0; i < dataRiwayatPengembalian.size(); i++) {
+
+                        if (dataRiwayatPengembalian.get(i)[0].toLowerCase().contains(keyword)) {
+
+                            listPencarianSaatIni.add(new String[]{
+                                dataRiwayatPengembalian.get(i)[0],
+                                dataRiwayatPengembalian.get(i)[1],
+                                dataRiwayatPengembalian.get(i)[2],
+                                dataRiwayatPengembalian.get(i)[3],
+                                dataRiwayatPengembalian.get(i)[4],
+                                dataRiwayatPengembalian.get(i)[5],});
+                        }
+                    }
+
+                    setTabelRiwayatPengembalian(listPencarianSaatIni);
+                }
+            }
+        });
+    }
+
     // Method Ubah Status Peminjaman
     public void ubahStatus(String idTransaksi) throws SQLException {
         int totalDenda;
-        
 
         // --- Ambil tanggal jatuh tempo ---
         String queryTJT = "SELECT status_peminjaman, tanggal_jatuh_tempo FROM transaksi WHERE id_transaksi = " + idTransaksi;
         ResultSet rs = dbc.crStmt().executeQuery(queryTJT);
 
         if (rs.next()) {
-            
+
             if (rs.getString("status_peminjaman").equals("Di Kembalikan")) {
                 JOptionPane.showMessageDialog(jPanel1, "Buku Sudah Di kembalikan");
-                
+
                 return;
             }
-            
+
             String tjt = rs.getString("tanggal_jatuh_tempo");
             totalDenda = hitungDenda(LocalDate.parse(tjt));
         } else {
@@ -118,11 +279,11 @@ public class Transaksi extends javax.swing.JPanel {
         // Simpan data pengembalian dan tampilkan pesan konfirmasi jika admin menekan ya
         if (pilihan == JOptionPane.YES_OPTION) {
             tambahPengembalian(idTransaksi, totalDenda);
-            
+
             String queryUbahStatus = "UPDATE transaksi "
                     + "SET status_peminjaman = 'Di Kembalikan' "
                     + "WHERE id_transaksi = " + idTransaksi + ";";
-            
+
             dbc.crStmt().executeUpdate(queryUbahStatus);
             dbc.putus();
 
@@ -131,26 +292,25 @@ public class Transaksi extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(jPanel1, "Pengembalian dibatalkan.");
         }
-        
-        setTabelTransaksi();
-        setTabelRiwayatPengembalian();
+
+        panggilMethod();
     }
-    
+
     // Method Tambah Pengembalian
-    public void tambahPengembalian (String idTransaksi, int denda) {
-        
+    public void tambahPengembalian(String idTransaksi, int denda) {
+
         String tanggalKembali = LocalDate.now().toString();
-        
+
         String query = "INSERT INTO pengembalian (id_transaksi, tanggal_kembali, denda) "
-                +"VALUES ("+ idTransaksi + " , '"+ tanggalKembali +"', "+ denda +");";
-        
+                + "VALUES (" + idTransaksi + " , '" + tanggalKembali + "', " + denda + ");";
+
         try {
             dbc.crStmt().executeUpdate(query);
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("tambah pengembalian gagal " + ex);
         }
-    };
-    
+    }
+
     // Method Hitung Denda
     public int hitungDenda(LocalDate tanggalJatuhTempo) {
         LocalDate hariIni = LocalDate.now();
@@ -164,50 +324,13 @@ public class Transaksi extends javax.swing.JPanel {
         }
     }
 
-    // Method set tabel riwayat pengembalian
-    public final void setTabelRiwayatPengembalian() {
-        String query
-                = "SELECT nama_lengkap, judul, tanggal_pinjam, tanggal_jatuh_tempo, tanggal_kembali, denda FROM pengembalian "
-                + "INNER JOIN transaksi "
-                + "ON pengembalian.id_transaksi = transaksi.id_transaksi "
-                + "INNER JOIN anggota "
-                + "ON anggota.id_anggota = transaksi.id_anggota "
-                + "INNER JOIN buku "
-                + "ON buku.id_buku = transaksi.id_buku ;";
-
+    // Untuk Cek Keyword merupakan angka atau tidak
+    public boolean adalahAngka(String input) {
         try {
-            ResultSet rs = dbc.crStmt().executeQuery(query);
-
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jtblRiwayatPengembalian.getModel();
-
-            model.setRowCount(0);
-
-            while (rs.next()) {
-
-                String tanggal_kembali = rs.getString("tanggal_kembali");
-                String denda = rs.getString("denda");
-
-                if (tanggal_kembali == null) {
-                    tanggal_kembali = "-";
-                }
-
-                if (denda.equals("0")) {
-                    denda = "-";
-                } else {
-                    denda = "Rp. " + denda;
-                }
-                
-                model.addRow(new Object[]{
-                    rs.getString("nama_lengkap"),
-                    rs.getString("judul"),
-                    rs.getString("tanggal_pinjam"),
-                    rs.getString("tanggal_jatuh_tempo"),
-                    tanggal_kembali,
-                    denda,});
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("filed load riwayat pengembalian   : " + ex);
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
         }
     }
 
@@ -222,8 +345,8 @@ public class Transaksi extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jtblRiwayatPengembalian = new components.jtable_custom();
         jLabel3 = new javax.swing.JLabel();
-        fieldPencarian1 = new components.FieldPencarian();
-        fieldPencarian2 = new components.FieldPencarian();
+        jtxtPeminjaman = new components.FieldPencarian();
+        jtxtRiwayatPengembalian = new components.FieldPencarian();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -261,10 +384,6 @@ public class Transaksi extends javax.swing.JPanel {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-history-24 (1).png"))); // NOI18N
         jLabel3.setText("Riwayat Pengembalian");
 
-        fieldPencarian1.addActionListener(this::fieldPencarian1ActionPerformed);
-
-        fieldPencarian2.addActionListener(this::fieldPencarian2ActionPerformed);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -275,12 +394,12 @@ public class Transaksi extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtxtRiwayatPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtxtPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
@@ -290,13 +409,13 @@ public class Transaksi extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtRiwayatPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
@@ -320,18 +439,7 @@ public class Transaksi extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fieldPencarian1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarian1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPencarian1ActionPerformed
-
-    private void fieldPencarian2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarian2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPencarian2ActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.FieldPencarian fieldPencarian1;
-    private components.FieldPencarian fieldPencarian2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -339,5 +447,7 @@ public class Transaksi extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private components.jtable_custom jtblPeminjaman;
     private components.jtable_custom jtblRiwayatPengembalian;
+    private components.FieldPencarian jtxtPeminjaman;
+    private components.FieldPencarian jtxtRiwayatPengembalian;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,10 +39,10 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setMinimumSize(new java.awt.Dimension(1465, 900));
-        setPreferredSize(new java.awt.Dimension(1465, 900));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new java.awt.CardLayout());
 
+        jPanel5.setPreferredSize(new java.awt.Dimension(1024, 768));
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 255));
