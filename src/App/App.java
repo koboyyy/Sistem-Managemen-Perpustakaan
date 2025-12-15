@@ -38,9 +38,8 @@ public class App extends javax.swing.JFrame {
         pn_utama = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manajemen Perpustakaan");
+        setTitle("Perpustakaan Ustadz Sukirman");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1465, 900));
         setSize(new java.awt.Dimension(1280, 720));
 
         jpDasar.setBackground(new java.awt.Color(255, 255, 51));
@@ -126,7 +125,7 @@ public class App extends javax.swing.JFrame {
                 .addComponent(menuPeminjaman)
                 .addGap(18, 18, 18)
                 .addComponent(menuRiwayatPeminjaman)
-                .addContainerGap(629, Short.MAX_VALUE))
+                .addContainerGap(637, Short.MAX_VALUE))
         );
 
         Header.setBackground(new java.awt.Color(255, 255, 255));
@@ -136,8 +135,8 @@ public class App extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icons8-book-32.png"))); // NOI18N
-        jLabel1.setText("Manajemen Perpustakaan");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/logo_kecil.png"))); // NOI18N
+        jLabel1.setText("Perpustakaan Ustadz Sukirman");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -146,7 +145,7 @@ public class App extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1025, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 981, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(20, 20, 20))
         );
@@ -180,8 +179,8 @@ public class App extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDasarLayout.createSequentialGroup()
                 .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jpDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MainSection)))
+                    .addComponent(MainSection)
+                    .addComponent(SideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

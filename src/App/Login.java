@@ -39,6 +39,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setMinimumSize(new java.awt.Dimension(1465, 900));
         setPreferredSize(new java.awt.Dimension(1465, 900));
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -47,12 +48,12 @@ public class Login extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(0, 153, 255));
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/Books_2_40672 (2).png"))); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Liberation Sans", 0, 3)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/logo_perpustakaan.png"))); // NOI18N
         jPanel6.add(jLabel4, new java.awt.GridBagConstraints());
 
         jLabel5.setFont(new java.awt.Font("URW Gothic", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("SISTEM INFORMASI PERPUSTAKAAN");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
