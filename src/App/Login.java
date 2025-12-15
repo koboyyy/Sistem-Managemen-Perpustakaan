@@ -46,6 +46,7 @@ public class Login extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel6.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 0, 3)); // NOI18N

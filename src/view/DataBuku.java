@@ -3,54 +3,101 @@ package view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import controller.DbConn;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author evo
  */
-public class DataBuku extends javax.swing.JPanel {
-    
+public final class DataBuku extends javax.swing.JPanel {
+
     final DbConn dbc = new DbConn();
-    
+    ArrayList<String[]> dataBuku = new ArrayList<>();
+
     public DataBuku() {
         initComponents();
-        showDataBuku();
+        getDataBuku();
+        showDataBuku(dataBuku);
+        cariBuku();
     }
 
-    public final void showDataBuku() {
-       
+    public void getDataBuku() {
         String query = "SELECT b.judul, p.nama_pengarang, pn.nama_penerbit, "
                 + "b.tahun_terbit, b.eksemplar, b.sumber, b.tanggal_terima "
                 + "FROM buku b "
                 + "LEFT JOIN pengarang p ON b.id_pengarang = p.id_pengarang "
                 + "LEFT JOIN penerbit pn ON b.id_penerbit = pn.id_penerbit ";
 
-
         try {
             ResultSet rs = dbc.crStmt().executeQuery(query);
 
-            javax.swing.table.DefaultTableModel modelTabel
-                    = (javax.swing.table.DefaultTableModel) jtblBuku.getModel();
-
-            modelTabel.setRowCount(0);
-
             while (rs.next()) {
-                modelTabel.addRow(new Object[]{
+                dataBuku.add(new String[]{
                     rs.getString("judul"),
                     rs.getString("nama_pengarang"),
                     rs.getString("nama_penerbit"),
                     rs.getString("tahun_terbit"),
-                    rs.getInt("eksemplar"),
+                    rs.getString("eksemplar"),
                     rs.getString("sumber"),
                     rs.getString("tanggal_terima")
                 });
             }
-
-            dbc.putus();
-
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(jPanel1, "errorrrrr: " + ex);
         }
+    }
+
+    public void showDataBuku(ArrayList<String[]> dataBuku) {
+        javax.swing.table.DefaultTableModel modelTabel
+                = (javax.swing.table.DefaultTableModel) jtblBuku.getModel();
+
+        modelTabel.setRowCount(0);
+
+        for (int i = 0; i < dataBuku.size(); i++) {
+            modelTabel.addRow(new Object[]{
+                dataBuku.get(i)[0],
+                dataBuku.get(i)[1],
+                dataBuku.get(i)[2],
+                dataBuku.get(i)[3],
+                dataBuku.get(i)[4],
+                dataBuku.get(i)[5],
+                dataBuku.get(i)[6],});
+        }
+    }
+
+    public void cariBuku() {
+        jtxtPencarianBuku.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+                    String keyword = jtxtPencarianBuku.getText();
+
+                    ArrayList<String[]> listBuku = new ArrayList<>();
+
+                    for (int i = 0; i < dataBuku.size(); i++) {
+                        if (dataBuku.get(i)[0].toLowerCase().contains(keyword)) {
+
+                            listBuku.add(new String[]{
+                                dataBuku.get(i)[0],
+                                dataBuku.get(i)[1],
+                                dataBuku.get(i)[2],
+                                dataBuku.get(i)[3],
+                                dataBuku.get(i)[4],
+                                dataBuku.get(i)[5],
+                                dataBuku.get(i)[6]
+                            });
+
+                        }
+                    }
+
+                    showDataBuku(listBuku);
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -64,7 +111,7 @@ public class DataBuku extends javax.swing.JPanel {
         jtblBuku = new components.jtable_custom();
         jbTambahPengarang = new javax.swing.JButton();
         jbTambahPenerbit = new javax.swing.JButton();
-        fieldPencarian1 = new components.FieldPencarian();
+        jtxtPencarianBuku = new components.FieldPencarian();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -124,7 +171,7 @@ public class DataBuku extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbTambahPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-                        .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtxtPencarianBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,7 +184,7 @@ public class DataBuku extends javax.swing.JPanel {
                     .addComponent(jbTambahBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbTambahPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbTambahPenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldPencarian1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtPencarianBuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -172,7 +219,6 @@ public class DataBuku extends javax.swing.JPanel {
     }//GEN-LAST:event_jbTambahPenerbitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.FieldPencarian fieldPencarian1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -180,5 +226,6 @@ public class DataBuku extends javax.swing.JPanel {
     private javax.swing.JButton jbTambahPenerbit;
     private javax.swing.JButton jbTambahPengarang;
     private components.jtable_custom jtblBuku;
+    private components.FieldPencarian jtxtPencarianBuku;
     // End of variables declaration//GEN-END:variables
 }

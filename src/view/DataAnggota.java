@@ -4,50 +4,104 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controller.DbConn;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author evo
  */
 public class DataAnggota extends javax.swing.JPanel {
-    
+
     final DbConn dbc = new DbConn();
+    ArrayList<String[]> dataAnggota = new ArrayList<>();
 
     public DataAnggota() {
         initComponents();
-        showDataAnggota();
+        getDataAnggota();
+        showDataAnggota(dataAnggota);
+        cariAnggota();
     }
 
-    public final void showDataAnggota() {
-    
-    String query = "SELECT nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp, email FROM anggota";
+    public final void getDataAnggota() {
+        String query = "SELECT nama_lengkap, tempat_lahir, tanggal_lahir, nik, alamat, jenis_kelamin, no_hp, email FROM anggota";
 
-    try {
-        ResultSet rs = dbc.crStmt().executeQuery(query);
+        try {
+            ResultSet rs = dbc.crStmt().executeQuery(query);
 
-        javax.swing.table.DefaultTableModel modelTabel =
-            (javax.swing.table.DefaultTableModel) jtblAnggota.getModel();
+            while (rs.next()) {
+                dataAnggota.add(new String[]{
+                    rs.getString("nama_lengkap"),
+                    rs.getString("tempat_lahir"),
+                    rs.getString("tanggal_lahir"),
+                    rs.getString("nik"),
+                    rs.getString("alamat"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("no_hp"),
+                    rs.getString("email"),});
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(jPanel1, "errorrrrr: " + ex);
+        }
+    }
+
+    public final void showDataAnggota(ArrayList<String[]> dataAnggota) {
+        javax.swing.table.DefaultTableModel modelTabel
+                = (javax.swing.table.DefaultTableModel) jtblAnggota.getModel();
 
         modelTabel.setRowCount(0);
 
-        while (rs.next()) {
+        for (int i = 0; i < dataAnggota.size(); i++) {
+
+            System.out.println(dataAnggota.get(i)[0]);
+
             modelTabel.addRow(new Object[]{
-                rs.getString("nama_lengkap"),
-                rs.getString("tempat_lahir"),
-                rs.getString("tanggal_lahir"),
-                rs.getString("nik"),
-                rs.getString("alamat"),
-                rs.getString("jenis_kelamin"),
-                rs.getString("no_hp"),
-                rs.getString("email")
-            });
+                dataAnggota.get(i)[0],
+                dataAnggota.get(i)[1],
+                dataAnggota.get(i)[2],
+                dataAnggota.get(i)[3],
+                dataAnggota.get(i)[4],
+                dataAnggota.get(i)[5],
+                dataAnggota.get(i)[6],
+                dataAnggota.get(i)[7],});
         }
-
-        dbc.putus();
-
-    } catch (SQLException ex) {
-        System.out.println(ex);
     }
-}
+
+    public final void cariAnggota() {
+
+        jtxtPencarianAnggota.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int code = e.getKeyCode();
+                if (code == KeyEvent.VK_ENTER) {
+                    String keyword = jtxtPencarianAnggota.getText();
+                    
+                    ArrayList<String[]> listAnggota = new ArrayList<>();
+
+                    for (int i = 0; i < dataAnggota.size(); i++) {
+                        if (dataAnggota.get(i)[0].toLowerCase().contains(keyword)) {
+
+                            listAnggota.add(new String[]{
+                                dataAnggota.get(i)[0],
+                                dataAnggota.get(i)[1],
+                                dataAnggota.get(i)[2],
+                                dataAnggota.get(i)[3],
+                                dataAnggota.get(i)[4],
+                                dataAnggota.get(i)[5],
+                                dataAnggota.get(i)[6],
+                                dataAnggota.get(i)[7]
+                            });
+
+                        }
+                    }
+
+                    showDataAnggota(listAnggota);
+                }
+            }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -58,7 +112,7 @@ public class DataAnggota extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblAnggota = new components.jtable_custom();
-        fieldPencarian2 = new components.FieldPencarian();
+        jtxtPencarianAnggota = new components.FieldPencarian();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -84,8 +138,6 @@ public class DataAnggota extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtblAnggota);
 
-        fieldPencarian2.addActionListener(this::fieldPencarian2ActionPerformed);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,7 +152,7 @@ public class DataAnggota extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtxtPencarianAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,7 +163,7 @@ public class DataAnggota extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldPencarian2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtPencarianAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -137,17 +189,13 @@ public class DataAnggota extends javax.swing.JPanel {
         new FormPendaftaranAnggota().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void fieldPencarian2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPencarian2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldPencarian2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.FieldPencarian fieldPencarian2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private components.jtable_custom jtblAnggota;
+    private components.FieldPencarian jtxtPencarianAnggota;
     // End of variables declaration//GEN-END:variables
 }
