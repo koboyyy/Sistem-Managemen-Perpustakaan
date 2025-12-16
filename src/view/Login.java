@@ -1,4 +1,4 @@
-package App;
+package view;
 
 import controller.DbConn;
 import java.awt.Color;
@@ -32,14 +32,13 @@ public class Login extends javax.swing.JFrame {
         jtfnama = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jtfkatasandi = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jbtnLogin = new javax.swing.JButton();
         jlWarning = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1465, 906));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jPanel5.setPreferredSize(new java.awt.Dimension(1024, 768));
@@ -80,10 +79,6 @@ public class Login extends javax.swing.JFrame {
         jtfkatasandi.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jtfkatasandi.setMargin(new java.awt.Insets(6, 6, 2, 6));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Roboto Light", 0, 12)); // NOI18N
-        jCheckBox1.setText("Ingat Saya");
-
         jbtnLogin.setBackground(new java.awt.Color(0, 102, 255));
         jbtnLogin.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jbtnLogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +106,6 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1)
                             .addComponent(jlWarning))
                         .addGap(0, 282, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -127,9 +121,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfkatasandi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
-                .addGap(3, 3, 3)
+                .addGap(28, 28, 28)
                 .addComponent(jlWarning)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +160,7 @@ public class Login extends javax.swing.JFrame {
         String password = jtfkatasandi.getText();
 
         if (validasiLogin(username, password)) {
-            new App().setVisible(true);
+            new HalamanUtama().setVisible(true);
             dispose();
             System.out.println("Login Berhasil");
         } else {
@@ -212,7 +204,6 @@ public class Login extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

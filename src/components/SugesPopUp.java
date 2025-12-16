@@ -20,6 +20,7 @@ import javax.swing.event.DocumentListener;
 public class SugesPopUp {
 
     private final javax.swing.JTextField jTextField;
+    
     private boolean isiAnakan = false;
     
     private ArrayList<String> listData = new ArrayList<>();

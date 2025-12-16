@@ -1,16 +1,14 @@
-package App;
-
-import view.*;
+package view;
 
 /**
  *
  * @author evo
  */
-public class App extends javax.swing.JFrame {
+public class HalamanUtama extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(App.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HalamanUtama.class.getName());
 
-    public App() {
+    public HalamanUtama() {
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -40,7 +38,6 @@ public class App extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perpustakaan Ustadz Sukirman");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
 
         jpDasar.setBackground(new java.awt.Color(255, 255, 51));
@@ -251,7 +248,7 @@ public class App extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(() -> new App().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HalamanUtama().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

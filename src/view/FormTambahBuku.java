@@ -224,7 +224,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        simpanBuku(); 
+        simpanBuku();
         reset();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
@@ -238,7 +238,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
             ResultSet rsPengarang = dbc.crStmt().executeQuery("SELECT * FROM pengarang");
             ResultSet rsPenerbit = dbc.crStmt().executeQuery("SELECT * FROM penerbit");
 
-            while (rsPengarang.next()) {               
+            while (rsPengarang.next()) {
                 cbPengarang.addItem(rsPengarang.getString("nama_pengarang"));
             }
 
@@ -252,36 +252,42 @@ public class FormTambahBuku extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
- 
+
 //    Method simpan buku
     public void simpanBuku() {
-        
+
         String judul = jtJudulBuku.getText();
         int id_pengarang = cbPengarang.getSelectedIndex();
         int id_penerbit = cbPenerbit.getSelectedIndex();
         String sumber = jtSumber.getText();
         int eksemplar = (Integer) jsEksempler.getValue();
+        
+        if (judul == "" || id_pengarang == 0 || id_penerbit == 0 || sumber == "" 
+                || eksemplar == 0 && jdTahunTerbit.getDate() == null || jdTahunTerbit.getDate() == null){ 
+            JOptionPane.showMessageDialog(this, "Input Belum Lengkap");
+            return;
+        }
+        
         java.sql.Date tahun_terbit = new java.sql.Date(jdTahunTerbit.getDate().getTime());
         java.sql.Date tanggal_terima = new java.sql.Date(jdTanggalTerima.getDate().getTime());
-        
 
         String query = "INSERT INTO buku (judul, id_pengarang, id_penerbit, tahun_terbit, eksemplar, sumber, tanggal_terima) "
-                + "VALUES ('" + judul + "', " + id_pengarang + ", " + id_penerbit + ", "
-                + tahun_terbit + ", " + eksemplar + ", '" + sumber + "', '" + tanggal_terima + "');";
+                + "VALUES ('" + judul + "', " + id_pengarang + ", " + id_penerbit + ", '"
+                + tahun_terbit + "', " + eksemplar + ", '" + sumber + "', '" + tanggal_terima + "');";
 
         try {
             dbc.mkConn();
             dbc.crStmt().executeUpdate(query);
             System.out.println("buku di tambahkan");
-            
+
             JOptionPane.showMessageDialog(this, "Buku berhasil di tambahkan");
 
             dbc.putus();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"gagal input buku karena :"+ ex);
+            JOptionPane.showMessageDialog(this, "gagal input buku karena :" + ex);
         }
     }
-    
+
 //    Method reset field inputan
     public void reset() {
         jtJudulBuku.setText("");
@@ -292,8 +298,7 @@ public class FormTambahBuku extends javax.swing.JFrame {
         jdTahunTerbit.setCalendar(null);
         jdTanggalTerima.setCalendar(null);
     }
-    
-    
+
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

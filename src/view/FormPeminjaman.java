@@ -18,6 +18,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
     ArrayList<String[]> listAnggota = new ArrayList<>();
 
     final DbConn dbc = new DbConn();
+    
     final SugesPopUp spu1;
     final SugesPopUp spu2;
 
@@ -316,6 +317,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
     
     public void tambahPeminjaman() {
 
+//        varaibel variable
         String idAnggota = tfIDAnggota.getText();
         String id_buku = jtIdBuku1.getText();
         Date tglPinjam = jdTanggalPinjam.getDate(); 
@@ -330,7 +332,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
         System.out.println(tanggalJatuhTempo);
 
-        // SUSUN QUERY INSERT PEMINJAMAN
+//      Querry database
         String query1
                 = "INSERT INTO transaksi (id_anggota, id_buku, tanggal_pinjam, tanggal_jatuh_tempo, status_peminjaman) VALUES ("
                 + "'" + idAnggota + "', "
@@ -339,6 +341,8 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 + "'" + tanggalJatuhTempo +"', 'Di Pinjam');";
 
         try {
+            
+//            Execute update
             dbc.crStmt().executeUpdate(query1);
 
             JOptionPane.showMessageDialog(null, "Peminjaman berhasil disimpan!");
